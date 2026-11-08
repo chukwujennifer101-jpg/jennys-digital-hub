@@ -154,14 +154,19 @@
     }
 
     /* Computer Keyboard choices grouped inside the Accessories listing */
-    .keyboard-options{display:grid;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
-    .keyboard-options-heading{margin:0;color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-    .keyboard-option{display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px;border:1px solid var(--line);border-radius:10px;background:#0b1522}
-    .keyboard-option img{width:64px;height:58px;object-fit:cover;border-radius:7px;background:#1a2a3b}
-    .keyboard-option strong{display:block;font-size:13px;line-height:1.35}
-    .keyboard-option .price{display:block;margin-top:4px;font-size:13px}
-    .keyboard-option .add-button{white-space:nowrap;padding:8px 10px;font-size:12px}
-    @media(max-width:420px){.keyboard-option{grid-template-columns:52px minmax(0,1fr);gap:8px}.keyboard-option img{width:52px;height:52px}.keyboard-option .add-button{grid-column:2;width:100%}}
+    .keyboard-select-button{width:100%;margin-top:8px}
+    .keyboard-dialog{width:min(560px,calc(100% - 28px));max-height:85vh;overflow:auto;padding:24px;border:1px solid #596779;border-radius:18px;background:#101c2b;color:var(--text);box-shadow:0 28px 90px #000b}
+    .keyboard-dialog::backdrop{background:#020711c9;backdrop-filter:blur(4px)}
+    .keyboard-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px}
+    .keyboard-dialog-head h2{margin:0;font-size:22px}
+    .keyboard-dialog-intro{margin:0 0 18px;color:var(--muted);font-size:14px}
+    .keyboard-options{display:grid;gap:11px}
+    .keyboard-option{display:grid;grid-template-columns:82px minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px;border:1px solid var(--line);border-radius:11px;background:#0b1522}
+    .keyboard-option img{width:82px;height:70px;object-fit:cover;border-radius:7px;background:#1a2a3b}
+    .keyboard-option strong{display:block;font-size:14px;line-height:1.35}
+    .keyboard-option .price{display:block;margin-top:4px;font-size:14px;color:var(--blue)}
+    .keyboard-option .add-button{white-space:nowrap;padding:9px 11px;font-size:12px}
+    @media(max-width:480px){.keyboard-dialog{padding:17px}.keyboard-option{grid-template-columns:64px minmax(0,1fr);gap:9px}.keyboard-option img{width:64px;height:60px}.keyboard-option .add-button{grid-column:2;width:100%}}
   </style>
 </head>
 <body>
@@ -206,6 +211,11 @@
     <section class="section" id="contact"><div class="wrap"><div class="contact-panel"><p class="eyebrow">Let's find your next system</p><h2>Looking for a laptop or accessory?</h2><p>Message Jenny's Digital Hub to discuss your requirements, confirm current prices and check availability.</p><a class="btn" href="https://wa.me/2349017402219" target="_blank" rel="noopener noreferrer">Contact us on WhatsApp</a></div></div></section>
   </main>
   <footer><div class="wrap footer-row"><span>Jenny's Digital Hub</span><span>&copy; <span id="year"></span> Jenny's Digital Hub. All rights reserved.</span></div></footer>
+  <dialog class="keyboard-dialog" id="keyboardDialog" aria-labelledby="keyboardDialogTitle">
+    <div class="keyboard-dialog-head"><h2 id="keyboardDialogTitle">Choose a Computer Keyboard</h2><button class="close-button" id="closeKeyboardDialog" type="button">Close</button></div>
+    <p class="keyboard-dialog-intro">Select the keyboard type you want. Each option has its own price.</p>
+    <div class="keyboard-options" id="keyboardOptionsList"></div>
+  </dialog>
   <div class="overlay" id="overlay"></div>
   <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
     <div class="cart-head"><h2>Your cart</h2><button class="close-button" id="closeCart" type="button">Close</button></div>
@@ -260,16 +270,8 @@
         const title=document.createElement("h3");title.textContent=p.name;
         const desc=document.createElement("p");desc.textContent=p.description;
         if(Array.isArray(p.options)&&p.options.length){
-          const options=document.createElement("div");options.className="keyboard-options";
-          const heading=document.createElement("h4");heading.className="keyboard-options-heading";heading.textContent="Computer Keyboard options";options.append(heading);
-          p.options.filter(option=>option.available!==false).forEach(option=>{
-            const choice=document.createElement("div");choice.className="keyboard-option";
-            const optionImage=document.createElement("img");optionImage.src=option.image;optionImage.alt=option.name+" product photograph";optionImage.loading="lazy";optionImage.onerror=()=>{optionImage.style.visibility="hidden";};
-            const details=document.createElement("div");const optionName=document.createElement("strong");optionName.textContent=option.name;const optionPrice=document.createElement("span");optionPrice.className="price";optionPrice.textContent=money(option.price);details.append(optionName,optionPrice);
-            const add=document.createElement("button");add.className="btn add-button";add.type="button";add.textContent="Add to cart";add.addEventListener("click",()=>{addToCart({...option,name:"Computer Keyboard — "+option.name,category:p.category});openCart();});
-            choice.append(optionImage,details,add);options.append(choice);
-          });
-          info.append(cat,title,desc,options);
+          const selectButton=document.createElement("button");selectButton.className="btn add-button keyboard-select-button";selectButton.type="button";selectButton.textContent="Choose keyboard type";selectButton.addEventListener("click",()=>openKeyboardOptions(p));
+          info.append(cat,title,desc,selectButton);
         }else{
           const bottom=document.createElement("div");bottom.className="product-bottom";
           const price=document.createElement("span");price.className="price";price.textContent=p.price===null?"Ask for price":money(p.price);
@@ -279,6 +281,19 @@
         card.append(image,info);$("productGrid").append(card);
       });
     }
+    function openKeyboardOptions(product){
+      const list=$("keyboardOptionsList");list.replaceChildren();
+      product.options.filter(option=>option.available!==false).forEach(option=>{
+        const choice=document.createElement("div");choice.className="keyboard-option";
+        const optionImage=document.createElement("img");optionImage.src=option.image;optionImage.alt=option.name+" product photograph";optionImage.loading="lazy";optionImage.onerror=()=>{optionImage.style.visibility="hidden";};
+        const details=document.createElement("div");const optionName=document.createElement("strong");optionName.textContent=option.name;const optionPrice=document.createElement("span");optionPrice.className="price";optionPrice.textContent=money(option.price);details.append(optionName,optionPrice);
+        const add=document.createElement("button");add.className="btn add-button";add.type="button";add.textContent="Add to cart";add.addEventListener("click",()=>{addToCart({...option,name:"Computer Keyboard — "+option.name,category:product.category});$("keyboardDialog").close();openCart();});
+        choice.append(optionImage,details,add);list.append(choice);
+      });
+      $("keyboardDialog").showModal();
+    }
+    $("closeKeyboardDialog").addEventListener("click",()=> $("keyboardDialog").close());
+    $("keyboardDialog").addEventListener("click",event=>{if(event.target===$("keyboardDialog"))$("keyboardDialog").close();});
     function addToCart(productOrId){const product=typeof productOrId==="object"?productOrId:products.find(p=>p.id===productOrId);if(!product)return;const key=product.id;if(cart[key])cart[key].quantity++;else cart[key]={...product,quantity:1};renderCart();}
     function changeQuantity(id,delta){if(!cart[id])return;cart[id].quantity+=delta;if(cart[id].quantity<1)delete cart[id];renderCart();}
     function renderCart(){
