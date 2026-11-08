@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Shop laptops and computer accessories at Jenny's Digital Hub.">
+  <meta name="theme-color" content="#080e1b">
+  <title>Jenny's Digital Hub | Laptops & Computer Accessories</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080e1b;--panel:#101a2b;--panel2:#15243a;--line:#26364d;--text:#f4f7fc;--muted:#aab6c9;--blue:#4d9cff;--blue2:#2478e5;--radius:14px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Arial,Helvetica,sans-serif}button,input,select,textarea{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit}.wrap{width:min(1120px,90%);margin:auto}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(8,14,27,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{font-size:20px;font-weight:800;letter-spacing:-.5px;text-decoration:none}.logo span{color:var(--blue)}.navlinks{display:flex;align-items:center;gap:24px}.navlinks a{font-size:14px;color:var(--muted);text-decoration:none}.navlinks a:hover{color:var(--blue)}
+    .btn,.cart-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:9px;padding:12px 18px;background:var(--blue);color:#06101e;font-weight:700;text-decoration:none;cursor:pointer;transition:.2s}.btn:hover,.cart-button:hover{background:#75b4ff;transform:translateY(-1px)}.btn.secondary{background:transparent;border:1px solid var(--line);color:var(--text)}.cart-button{padding:10px 14px}.count{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:99px;background:#06101e;color:#fff;font-size:12px}
+    .hero{padding:90px 0 78px;background:radial-gradient(ellipse at 78% 25%,rgba(77,156,255,.16),transparent 38%),linear-gradient(135deg,#0b1424,#080e1b 68%)}.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:48px}.eyebrow{margin:0 0 12px;color:var(--blue);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.hero h1{max-width:700px;margin:0;font-size:clamp(40px,6vw,66px);line-height:1.06;letter-spacing:-2px}.hero h1 span{color:var(--blue)}.hero-copy{max-width:570px;margin:22px 0 28px;color:var(--muted);font-size:17px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.hero-visual{min-height:300px;display:grid;place-items:center;border:1px solid #294263;border-radius:22px;background:linear-gradient(145deg,#142943,#0c1728);box-shadow:0 30px 80px #0005;position:relative;overflow:hidden}.hero-visual:before{content:"";position:absolute;width:260px;height:260px;border:1px solid #4d9cff45;border-radius:50%;box-shadow:0 0 0 35px #4d9cff0c,0 0 0 70px #4d9cff08}.laptop-art{position:relative;width:75%;max-width:340px;z-index:1}.screen{height:185px;border:9px solid #344b68;border-bottom-width:13px;border-radius:12px 12px 5px 5px;background:linear-gradient(135deg,#132f50,#2676b9 55%,#12243c);box-shadow:inset 0 0 30px #8bc8ff22}.screen:after{content:"JDH";display:grid;place-items:center;height:100%;font-size:42px;font-weight:800;letter-spacing:5px;color:#d7ecff}.base{height:12px;margin:0 -18px;background:linear-gradient(#9aadc3,#34465e);border-radius:2px 2px 14px 14px}
+    .trust{border-block:1px solid var(--line);background:#0c1524}.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:22px 0}.trust-item strong{display:block;font-size:14px}.trust-item span{color:var(--muted);font-size:13px}
+    .section{padding:76px 0}.section-alt{background:#0c1524}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}.section h2{margin:0;font-size:clamp(28px,4vw,38px);letter-spacing:-1px}.section-intro{max-width:550px;color:var(--muted);margin:9px 0 0}.filters{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px}.field{width:100%;min-width:0;padding:12px 13px;border:1px solid var(--line);border-radius:8px;background:#0b1422;color:var(--text);outline:none}.field:focus{border-color:var(--blue);box-shadow:0 0 0 3px #4d9cff22}.search{flex:1;min-width:220px}.filters select{width:auto;min-width:170px}
+    .product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.product-card{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);transition:.2s}.product-card:hover{transform:translateY(-4px);border-color:#45658d}.product-image{height:150px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,#27496f,#14243a 70%);color:#cfe6ff;font-size:15px;font-weight:800;letter-spacing:3px}.product-info{padding:17px}.category{color:var(--blue);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px}.product-info h3{margin:6px 0;font-size:17px}.product-info p{min-height:48px;margin:0 0 16px;color:var(--muted);font-size:13px}.product-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px}.price{font-weight:800}.add-button{padding:9px 12px;font-size:13px}.empty{grid-column:1/-1;padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}.about-grid p{color:var(--muted)}.benefits{display:grid;gap:12px}.benefit{padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}.benefit h3{margin:0 0 5px;font-size:16px}.benefit p{margin:0;font-size:14px}
+    .contact-panel{padding:42px;border:1px solid #294263;border-radius:18px;background:radial-gradient(ellipse at 85% 0%,#1b3c60,#101a2b 60%);text-align:center}.contact-panel p:not(.eyebrow){max-width:600px;margin:12px auto 24px;color:var(--muted)}
+    footer{padding:24px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px}.footer-row{display:flex;justify-content:space-between;gap:16px}
+    .overlay{position:fixed;inset:0;z-index:29;background:#0009;opacity:0;visibility:hidden;transition:.2s}.overlay.open{opacity:1;visibility:visible}.cart-drawer{position:fixed;z-index:30;top:0;right:0;width:min(480px,100%);height:100dvh;overflow:auto;padding:24px;background:var(--panel);border-left:1px solid var(--line);transform:translateX(102%);transition:.25s}.cart-drawer.open{transform:translateX(0)}.cart-head{display:flex;align-items:center;justify-content:space-between;gap:15px;padding-bottom:16px;border-bottom:1px solid var(--line)}.cart-head h2{margin:0}.close-button{border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:transparent;color:var(--text);cursor:pointer}.cart-item{display:flex;justify-content:space-between;gap:14px;padding:17px 0;border-bottom:1px solid var(--line)}.cart-item p{margin:3px 0;color:var(--muted);font-size:13px}.quantity-controls{display:flex;align-items:center;gap:9px;margin-top:8px}.quantity-controls button{border:1px solid var(--line);border-radius:6px;padding:3px 9px;background:#0b1422;color:var(--text);cursor:pointer}.quantity-controls .remove-button{border:0;color:#ff9b9b;background:transparent}.cart-total{display:flex;justify-content:space-between;padding:20px 0;font-size:18px;font-weight:800}.notice{color:var(--muted);font-size:12px}.full-button{width:100%}.checkout{display:none;margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}.checkout.open{display:block}.checkout h3{margin:0 0 6px}.checkout form{display:grid;gap:13px}.checkout label{display:grid;gap:6px;font-size:13px;color:var(--muted)}.checkout textarea{min-height:80px;resize:vertical}.checkout .field{color:var(--text)}.status-message{font-size:13px;overflow-wrap:anywhere}.status-message.success{color:#8ee0b1}.status-message.error{color:#ff9b9b}
+    @media(max-width:850px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-grid{grid-template-columns:1fr .8fr;gap:25px}.hero{padding:70px 0}.hero-visual{min-height:250px}.screen{height:145px}.about-grid{gap:25px}}
+    @media(max-width:620px){.nav{min-height:66px}.navlinks{display:none}.hero-grid,.about-grid{grid-template-columns:1fr}.hero{padding:58px 0}.hero-visual{min-height:220px}.screen{height:130px}.trust-grid{grid-template-columns:1fr;gap:12px}.section{padding:58px 0}.section-head{display:block}.product-grid{gap:12px}.product-image{height:120px}.product-info{padding:13px}.product-info p{min-height:65px}.product-bottom{align-items:flex-start;flex-direction:column}.add-button{width:100%}.contact-panel{padding:28px 18px}.footer-row{flex-direction:column}.filters select{flex:1}.cart-drawer{padding:18px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="logo" href="#home" aria-label="Jenny's Digital Hub home">JENNY'S <span>DIGITAL HUB</span></a>
+      <nav class="navlinks" aria-label="Main navigation">
+        <a href="#products">Products</a><a href="#about">About</a><a href="#contact">Contact</a>
+      </nav>
+      <button class="cart-button" id="openCart" type="button" aria-label="Open shopping cart">Cart <span class="count" id="cartCount">0</span></button>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Technology, made straightforward</p>
+          <h1>The right tech for <span>your next move.</span></h1>
+          <p class="hero-copy">Shop laptops and essential computer accessories for school, work and everyday use. Tell us what you need and your budget; we'll help you find a suitable option.</p>
+          <div class="hero-actions"><a class="btn" href="#products">Explore products</a><a class="btn secondary" href="https://wa.me/2349017402219" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></div>
+        </div>
+        <div class="hero-visual" aria-label="Laptop illustration"><div class="laptop-art"><div class="screen"></div><div class="base"></div></div></div>
+      </div>
+    </section>
+    <section class="trust"><div class="wrap trust-grid">
+      <div class="trust-item"><strong>Options for different budgets</strong><span>Find equipment that fits your needs.</span></div>
+      <div class="trust-item"><strong>Product guidance</strong><span>Confirm specifications and compatibility.</span></div>
+      <div class="trust-item"><strong>Direct communication</strong><span>Ask about availability before ordering.</span></div>
+    </div></section>
+    <section class="section" id="products">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Shop the collection</p><h2>Products</h2><p class="section-intro">Browse laptops and computer accessories. Please confirm current price, stock and compatibility with us before payment.</p></div></div>
+        <div class="filters"><input class="field search" id="searchInput" type="search" placeholder="Search products..." aria-label="Search products"><select class="field" id="categoryFilter" aria-label="Filter by category"><option value="All">All categories</option><option value="Laptops">Laptops</option><option value="Accessories">Accessories</option><option value="Components">Components</option><option value="Storage">Storage</option></select></div>
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
+        <p class="notice">Prices shown are sample listing prices and may change. Product availability is confirmed directly with Jenny's Digital Hub.</p>
+      </div>
+    </section>
+    <section class="section section-alt" id="about"><div class="wrap about-grid">
+      <div><p class="eyebrow">Who we are</p><h2>Technology shopping, made straightforward.</h2><p>Jenny's Digital Hub focuses on laptops and computer accessories for students, professionals and everyday users. Our aim is to help customers choose suitable technology based on their requirements and budgets.</p><p>Contact us to confirm product availability, specifications, compatibility and delivery arrangements before purchasing.</p></div>
+      <div class="benefits"><article class="benefit"><h3>Options for different budgets</h3><p>Share your needs and budget so we can discuss suitable options.</p></article><article class="benefit"><h3>Product guidance</h3><p>Check specifications and compatibility before choosing equipment.</p></article><article class="benefit"><h3>After-purchase support</h3><p>Reach out with questions about the product you purchased.</p></article></div>
+    </div></section>
+    <section class="section" id="contact"><div class="wrap"><div class="contact-panel"><p class="eyebrow">Let's find your next system</p><h2>Looking for a laptop or accessory?</h2><p>Message Jenny's Digital Hub to discuss your requirements, confirm current prices and check availability.</p><a class="btn" href="https://wa.me/2349017402219" target="_blank" rel="noopener noreferrer">Contact us on WhatsApp</a></div></div></section>
+  </main>
+  <footer><div class="wrap footer-row"><span>Jenny's Digital Hub</span><span>&copy; <span id="year"></span> Jenny's Digital Hub. All rights reserved.</span></div></footer>
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="cart-head"><h2>Your cart</h2><button class="close-button" id="closeCart" type="button">Close</button></div>
+    <div id="cartItems"><p class="notice">Your cart is empty.</p></div>
+    <div class="cart-total"><span>Subtotal</span><span id="cartTotal">₦0</span></div>
+    <p class="notice">Your order will be sent to our WhatsApp for confirmation. No online payment is collected on this website.</p>
+    <button class="btn full-button" id="checkoutButton" type="button">Continue to checkout</button>
+    <section class="checkout" id="checkout">
+      <h3>Delivery and order details</h3>
+      <p class="notice">After you submit, WhatsApp will open with your order details. We will confirm stock, delivery and bank transfer details with you.</p>
+      <form id="checkoutForm">
+        <label>Full name<input class="field" name="customerName" autocomplete="name" required maxlength="100"></label>
+        <label>Phone number<input class="field" name="phone" type="tel" autocomplete="tel" required maxlength="25"></label>
+        <label>Delivery address<textarea class="field" name="address" autocomplete="street-address" required maxlength="500"></textarea></label>
+        <label>Payment preference<select class="field" name="payment" required><option value="">Choose a preference</option><option value="Bank transfer">Bank transfer</option><option value="Pay on delivery (subject to confirmation)">Pay on delivery (subject to confirmation)</option></select></label>
+        <button class="btn full-button" type="submit">Send order to WhatsApp</button>
+      </form>
+      <p class="status-message" id="checkoutMessage" role="status"></p>
+    </section>
+  </aside>
+  <script>
+    const WHATSAPP_NUMBER = "2349017402219";
+    const products = [
+      {id:1,name:"Business Laptop",category:"Laptops",price:250000,description:"A laptop for studying, office work and business.",art:"LAPTOP"},
+      {id:2,name:"Laptop Charger",category:"Accessories",price:12000,description:"Replacement charger. Confirm compatibility before buying.",art:"CHARGER"},
+      {id:3,name:"Laptop Battery",category:"Accessories",price:18000,description:"Replacement battery options for compatible laptops.",art:"BATTERY"},
+      {id:4,name:"Laptop RAM",category:"Components",price:15000,description:"Memory upgrade options. Confirm your laptop type.",art:"MEMORY"},
+      {id:5,name:"External Hard Drive",category:"Storage",price:28000,description:"Extra storage for your files and school projects.",art:"STORAGE"},
+      {id:6,name:"Wireless Mouse",category:"Accessories",price:6500,description:"A practical mouse for everyday computer use.",art:"MOUSE"},
+      {id:7,name:"USB Flash Drive",category:"Storage",price:5000,description:"Portable storage for documents and other files.",art:"USB DRIVE"},
+      {id:8,name:"Computer Headphones",category:"Accessories",price:9000,description:"Headphones for calls, classes and entertainment.",art:"AUDIO"},
+      {id:9,name:"Hard Drive Casing",category:"Storage",price:null,description:"Casing options for compatible internal drives. Ask for a quote.",art:"DRIVE CASE"},
+      {id:10,name:"Computer Keyboard",category:"Accessories",price:null,description:"Keyboard options for everyday computer use. Ask for a quote.",art:"KEYBOARD"}
+    ];
+    const cart = {};
+    const $ = id => document.getElementById(id);
+    const money = amount => new Intl.NumberFormat("en-NG",{style:"currency",currency:"NGN",maximumFractionDigits:0}).format(amount);
+    $("year").textContent = new Date().getFullYear();
+
+    function renderProducts(){
+      const term = $("searchInput").value.trim().toLowerCase();
+      const category = $("categoryFilter").value;
+      const matches = products.filter(p => (category === "All" || p.category === category) && (p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term)));
+      $("productGrid").replaceChildren();
+      if(!matches.length){const empty=document.createElement("p");empty.className="empty";empty.textContent="No matching products found."; $("productGrid").append(empty);return;}
+      matches.forEach(p=>{
+        const card=document.createElement("article");card.className="product-card";
+        const image=document.createElement("div");image.className="product-image";image.textContent=p.art;
+        const info=document.createElement("div");info.className="product-info";
+        const cat=document.createElement("span");cat.className="category";cat.textContent=p.category;
+        const title=document.createElement("h3");title.textContent=p.name;
+        const desc=document.createElement("p");desc.textContent=p.description;
+        const bottom=document.createElement("div");bottom.className="product-bottom";
+        const price=document.createElement("span");price.className="price";price.textContent=p.price===null?"Ask for price":money(p.price);
+        const button=document.createElement("button");button.className="btn add-button";button.type="button";button.textContent="Add to cart";button.addEventListener("click",()=>{addToCart(p.id);openCart();});
+        bottom.append(price,button);info.append(cat,title,desc,bottom);card.append(image,info);$("productGrid").append(card);
+      });
+    }
+    function addToCart(id){const product=products.find(p=>p.id===id);if(!product)return;if(cart[id])cart[id].quantity++;else cart[id]={...product,quantity:1};renderCart();}
+    function changeQuantity(id,delta){if(!cart[id])return;cart[id].quantity+=delta;if(cart[id].quantity<1)delete cart[id];renderCart();}
+    function renderCart(){
+      const items=Object.values(cart);const quantity=items.reduce((sum,item)=>sum+item.quantity,0);
+      const total=items.reduce((sum,item)=>sum+(item.price||0)*item.quantity,0);
+      $("cartCount").textContent=quantity;$("cartTotal").textContent=money(total);$("cartItems").replaceChildren();
+      if(!items.length){const empty=document.createElement("p");empty.className="notice";empty.textContent="Your cart is empty."; $("cartItems").append(empty);$("checkout").classList.remove("open");return;}
+      items.forEach(item=>{
+        const row=document.createElement("div");row.className="cart-item";const details=document.createElement("div");
+        const name=document.createElement("strong");name.textContent=item.name;
+        const unit=document.createElement("p");unit.textContent=item.price===null?"Price to be confirmed":money(item.price)+" each";
+        const controls=document.createElement("div");controls.className="quantity-controls";
+        const minus=document.createElement("button");minus.type="button";minus.textContent="−";minus.setAttribute("aria-label","Decrease "+item.name+" quantity");minus.addEventListener("click",()=>changeQuantity(item.id,-1));
+        const qty=document.createElement("span");qty.textContent=item.quantity;
+        const plus=document.createElement("button");plus.type="button";plus.textContent="+";plus.setAttribute("aria-label","Increase "+item.name+" quantity");plus.addEventListener("click",()=>changeQuantity(item.id,1));
+        const remove=document.createElement("button");remove.type="button";remove.className="remove-button";remove.textContent="Remove";remove.addEventListener("click",()=>{delete cart[item.id];renderCart();});
+        controls.append(minus,qty,plus,remove);details.append(name,unit,controls);
+        const subtotal=document.createElement("strong");subtotal.textContent=item.price===null?"Quote":money(item.price*item.quantity);row.append(details,subtotal);$("cartItems").append(row);
+      });
+    }
+    function openCart(){$("cartDrawer").classList.add("open");$("overlay").classList.add("open");$("cartDrawer").setAttribute("aria-hidden","false");}
+    function closeCart(){$("cartDrawer").classList.remove("open");$("overlay").classList.remove("open");$("cartDrawer").setAttribute("aria-hidden","true");}
+    $("openCart").addEventListener("click",openCart);$("closeCart").addEventListener("click",closeCart);$("overlay").addEventListener("click",closeCart);
+    document.addEventListener("keydown",event=>{if(event.key==="Escape")closeCart();});
+    $("searchInput").addEventListener("input",renderProducts);$("categoryFilter").addEventListener("change",renderProducts);
+    $("checkoutButton").addEventListener("click",()=>{if(!Object.keys(cart).length){$("checkoutMessage").textContent="Add a product to your cart first.";$("checkoutMessage").className="status-message error";return;}$("checkout").classList.toggle("open");$("checkoutMessage").textContent="";});
+    $("checkoutForm").addEventListener("submit",event=>{
+      event.preventDefault();const items=Object.values(cart);if(!items.length)return;
+      const data=new FormData(event.currentTarget);
+      const lines=items.map(item=>"- "+item.name+" x"+item.quantity+" — "+(item.price===null?"Price to confirm":money(item.price*item.quantity)));
+      const total=items.reduce((sum,item)=>sum+(item.price||0)*item.quantity,0);
+      const message=["Hello Jenny's Digital Hub, I would like to place an order.","","Name: "+data.get("customerName"),"Phone: "+data.get("phone"),"Delivery address: "+data.get("address"),"Payment preference: "+data.get("payment"),"","Items:",...lines,"","Listed subtotal (excluding items requiring a quote): "+money(total),"Please confirm availability, final total, delivery and bank transfer details."].join("\n");
+      $("checkoutMessage").textContent="Opening WhatsApp with your order details. Please review and send the message there.";
+      window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank","noopener,noreferrer");
+    });
+    renderProducts();renderCart();
+  </script>
+</body>
+</html>
