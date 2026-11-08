@@ -96,7 +96,24 @@ function validateProducts(value) {
     if (!/^https:\/\//i.test(image)) throw new Error("Every product image must use a secure https address.");
     if (price !== null && (!Number.isFinite(price) || price < 0 || price > 1000000000)) throw new Error("A product price is invalid.");
     ids.add(id);
-    return { id, name, category, price, description, art: String(item.art || category.toUpperCase()).slice(0, 30), image, available: item.available !== false };
+    let options;
+    if (item.options !== undefined) {
+      if (!Array.isArray(item.options) || item.options.length > 30) throw new Error("Product options must be a valid list.");
+      const optionIds = new Set();
+      options = item.options.map(option => {
+        const optionId = String(option.id || "").trim().slice(0, 80);
+        const optionName = String(option.name || "").trim().slice(0, 100);
+        const optionDescription = String(option.description || "").trim().slice(0, 300);
+        const optionImage = String(option.image || "").trim().slice(0, 2000);
+        const optionPrice = option.price === null || option.price === "" ? null : Number(option.price);
+        if (!optionId || optionIds.has(optionId) || !optionName) throw new Error("Every product option needs a unique ID and name.");
+        if (!/^https:\/\//i.test(optionImage)) throw new Error("Every product option image must use a secure https address.");
+        if (optionPrice !== null && (!Number.isFinite(optionPrice) || optionPrice < 0 || optionPrice > 1000000000)) throw new Error("A product option price is invalid.");
+        optionIds.add(optionId);
+        return { id: optionId, name: optionName, price: optionPrice, description: optionDescription, image: optionImage, available: option.available !== false };
+      });
+    }
+    return { id, name, category, price, description, art: String(item.art || category.toUpperCase()).slice(0, 30), image, available: item.available !== false, ...(options ? { options } : {}) };
   });
 }
 module.exports = async function handler(req, res) {
