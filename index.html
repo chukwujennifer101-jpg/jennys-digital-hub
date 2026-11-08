@@ -231,6 +231,7 @@
       <form id="checkoutForm">
         <label>Full name<input class="field" name="customerName" autocomplete="name" required maxlength="100"></label>
         <label>Phone number<input class="field" name="phone" type="tel" autocomplete="tel" required maxlength="25"></label>
+        <label>Email address<input class="field" name="email" type="email" autocomplete="email" required maxlength="150"></label>
         <label>Delivery address<textarea class="field" name="address" autocomplete="street-address" required maxlength="500"></textarea></label>
         <label>Payment method<select class="field" name="payment" required><option value="">Choose payment method</option><option value="Paystack">Paystack</option><option value="Bank Transfer">Bank Transfer</option></select></label>
         <button class="btn full-button" type="submit">Continue with selected payment method</button>
@@ -340,7 +341,7 @@
       message.textContent="Creating your order securely…";
       try{
         const response=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
-          customer:{name:String(data.get("customerName")).trim(),phone:String(data.get("phone")).trim(),address:String(data.get("address")).trim()},
+          customer:{name:String(data.get("customerName")).trim(),phone:String(data.get("phone")).trim(),email:String(data.get("email")).trim(),address:String(data.get("address")).trim()},
           paymentMethod:String(data.get("payment")),
           items:orderItems
         })});
