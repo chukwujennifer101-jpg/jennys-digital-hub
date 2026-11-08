@@ -41,6 +41,40 @@
     @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
     @media(max-width:620px){.hero{padding:64px 0}.hero-visual{animation:none}.trust-item{padding-left:12px}.logo{font-size:14px}}
     @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero-visual{animation:none}}
+    /* Refined editorial storefront and product artwork */
+    :root{--bg:#080d16;--panel:#111d2b;--line:#344253;--blue:#d0b58d}
+    body{background:linear-gradient(180deg,#080e18 0%,#0b1421 48%,#080e18 100%);font-feature-settings:"ss01" on}
+    .wrap{width:min(1160px,91%)}
+    .topbar{background:rgba(7,13,22,.92);border-bottom-color:#ffffff14}
+    .hero{padding:112px 0 100px;background:radial-gradient(ellipse at 78% 38%,rgba(208,181,141,.17),transparent 36%),linear-gradient(115deg,#142236 0%,#0b1421 54%,#080e18 100%)}
+    .hero h1{max-width:740px;font-size:clamp(46px,6.6vw,78px);letter-spacing:-3.4px;line-height:1.02}
+    .hero-copy{font-size:16px;max-width:540px}
+    .hero-visual{min-height:330px;border-color:#ffffff20;background:linear-gradient(145deg,#1c3044,#0d1826);box-shadow:0 32px 90px #0008}
+    .trust{border-color:#ffffff12;background:#0c1725}
+    .section{padding:88px 0}
+    .section-head{margin-bottom:34px}
+    .section-intro{font-size:14px}
+    .product-grid{gap:20px}
+    .product-card{border-color:#ffffff18;background:linear-gradient(155deg,#172638,#101a27);box-shadow:0 10px 30px #0002}
+    .product-card:hover{border-color:#c4a77e;box-shadow:0 24px 50px #0006}
+    .product-image{height:184px;padding:12px;background:radial-gradient(ellipse at 50% 50%,#34485c,#152435 72%);overflow:hidden}
+    .product-image img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 12px 14px #0005);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+    .product-card:hover .product-image img{transform:translateY(-4px) scale(1.045)}
+    .product-info{padding:19px}
+    .product-info h3{font-size:16px;letter-spacing:-.2px}
+    .product-info p{line-height:1.65}
+    .add-button{border-radius:7px}
+    .cart-item{align-items:center}
+    .cart-product-art{width:66px;height:66px;flex:0 0 66px;object-fit:contain;border:1px solid #ffffff16;border-radius:10px;background:linear-gradient(145deg,#24384b,#101a27);padding:4px}
+    .cart-item-main{display:flex;align-items:center;gap:12px;min-width:0}
+    .cart-item-details{min-width:0}
+    .cart-item-details strong{display:block}
+    .benefit{padding:21px}
+    .contact-panel{padding:52px 32px}
+    footer{border-color:#ffffff16}
+    @media(max-width:850px){.hero{padding:76px 0}.hero-visual{min-height:270px}.product-image{height:164px}}
+    @media(max-width:620px){.hero{padding:62px 0}.section{padding:64px 0}.product-grid{gap:13px}.product-image{height:132px}.product-info{padding:14px}.cart-product-art{width:58px;height:58px;flex-basis:58px}}
+
 
   </style>
 </head>
@@ -109,16 +143,16 @@
   <script>
     const WHATSAPP_NUMBER = "2349017402219";
     const products = [
-      {id:1,name:"Business Laptop",category:"Laptops",price:250000,description:"A laptop for studying, office work and business.",art:"LAPTOP"},
-      {id:2,name:"Laptop Charger",category:"Accessories",price:12000,description:"Replacement charger. Confirm compatibility before buying.",art:"CHARGER"},
-      {id:3,name:"Laptop Battery",category:"Accessories",price:18000,description:"Replacement battery options for compatible laptops.",art:"BATTERY"},
-      {id:4,name:"Laptop RAM",category:"Components",price:15000,description:"Memory upgrade options. Confirm your laptop type.",art:"MEMORY"},
-      {id:5,name:"External Hard Drive",category:"Storage",price:28000,description:"Extra storage for your files and school projects.",art:"STORAGE"},
-      {id:6,name:"Wireless Mouse",category:"Accessories",price:6500,description:"A practical mouse for everyday computer use.",art:"MOUSE"},
-      {id:7,name:"USB Flash Drive",category:"Storage",price:5000,description:"Portable storage for documents and other files.",art:"USB DRIVE"},
-      {id:8,name:"Computer Headphones",category:"Accessories",price:9000,description:"Headphones for calls, classes and entertainment.",art:"AUDIO"},
-      {id:9,name:"Hard Drive Casing",category:"Storage",price:null,description:"Casing options for compatible internal drives. Ask for a quote.",art:"DRIVE CASE"},
-      {id:10,name:"Computer Keyboard",category:"Accessories",price:null,description:"Keyboard options for everyday computer use. Ask for a quote.",art:"KEYBOARD"}
+      {id:1,name:"Business Laptop",category:"Laptops",price:250000,description:"A laptop for studying, office work and business.",art:"LAPTOP",image:"assets/products/laptop.svg"},
+      {id:2,name:"Laptop Charger",category:"Accessories",price:12000,description:"Replacement charger. Confirm compatibility before buying.",art:"CHARGER",image:"assets/products/charger.svg"},
+      {id:3,name:"Laptop Battery",category:"Accessories",price:18000,description:"Replacement battery options for compatible laptops.",art:"BATTERY",image:"assets/products/battery.svg"},
+      {id:4,name:"Laptop RAM",category:"Components",price:15000,description:"Memory upgrade options. Confirm your laptop type.",art:"RAM",image:"assets/products/ram.svg"},
+      {id:5,name:"External Hard Drive",category:"Storage",price:28000,description:"Extra storage for your files and school projects.",art:"STORAGE",image:"assets/products/storage.svg"},
+      {id:6,name:"Wireless Mouse",category:"Accessories",price:6500,description:"A practical mouse for everyday computer use.",art:"MOUSE",image:"assets/products/mouse.svg"},
+      {id:7,name:"USB Flash Drive",category:"Storage",price:5000,description:"Portable storage for documents and other files.",art:"USB",image:"assets/products/usb.svg"},
+      {id:8,name:"Computer Headphones",category:"Accessories",price:9000,description:"Headphones for calls, classes and entertainment.",art:"HEADPHONES",image:"assets/products/headphones.svg"},
+      {id:9,name:"Hard Drive Casing",category:"Storage",price:null,description:"Casing options for compatible internal drives. Ask for a quote.",art:"CASING",image:"assets/products/casing.svg"},
+      {id:10,name:"Computer Keyboard",category:"Accessories",price:null,description:"Keyboard options for everyday computer use. Ask for a quote.",art:"KEYBOARD",image:"assets/products/keyboard.svg"}
     ];
     const cart = {};
     const $ = id => document.getElementById(id);
@@ -133,7 +167,7 @@
       if(!matches.length){const empty=document.createElement("p");empty.className="empty";empty.textContent="No matching products found."; $("productGrid").append(empty);return;}
       matches.forEach(p=>{
         const card=document.createElement("article");card.className="product-card";
-        const image=document.createElement("div");image.className="product-image";image.textContent=p.art;
+        const image=document.createElement("div");image.className="product-image";const artwork=document.createElement("img");artwork.src=p.image;artwork.alt=p.name+" product image";artwork.loading="lazy";image.append(artwork);
         const info=document.createElement("div");info.className="product-info";
         const cat=document.createElement("span");cat.className="category";cat.textContent=p.category;
         const title=document.createElement("h3");title.textContent=p.name;
@@ -152,7 +186,7 @@
       $("cartCount").textContent=quantity;$("cartTotal").textContent=money(total);$("cartItems").replaceChildren();
       if(!items.length){const empty=document.createElement("p");empty.className="notice";empty.textContent="Your cart is empty."; $("cartItems").append(empty);$("checkout").classList.remove("open");return;}
       items.forEach(item=>{
-        const row=document.createElement("div");row.className="cart-item";const details=document.createElement("div");
+        const row=document.createElement("div");row.className="cart-item";const main=document.createElement("div");main.className="cart-item-main";const art=document.createElement("img");art.className="cart-product-art";art.src=item.image;art.alt="";art.loading="lazy";const details=document.createElement("div");details.className="cart-item-details";
         const name=document.createElement("strong");name.textContent=item.name;
         const unit=document.createElement("p");unit.textContent=item.price===null?"Price to be confirmed":money(item.price)+" each";
         const controls=document.createElement("div");controls.className="quantity-controls";
@@ -160,8 +194,8 @@
         const qty=document.createElement("span");qty.textContent=item.quantity;
         const plus=document.createElement("button");plus.type="button";plus.textContent="+";plus.setAttribute("aria-label","Increase "+item.name+" quantity");plus.addEventListener("click",()=>changeQuantity(item.id,1));
         const remove=document.createElement("button");remove.type="button";remove.className="remove-button";remove.textContent="Remove";remove.addEventListener("click",()=>{delete cart[item.id];renderCart();});
-        controls.append(minus,qty,plus,remove);details.append(name,unit,controls);
-        const subtotal=document.createElement("strong");subtotal.textContent=item.price===null?"Quote":money(item.price*item.quantity);row.append(details,subtotal);$("cartItems").append(row);
+        controls.append(minus,qty,plus,remove);details.append(name,unit,controls);main.append(art,details);
+        const subtotal=document.createElement("strong");subtotal.textContent=item.price===null?"Quote":money(item.price*item.quantity);row.append(main,subtotal);$("cartItems").append(row);
       });
     }
     function openCart(){$("cartDrawer").classList.add("open");$("overlay").classList.add("open");$("cartDrawer").setAttribute("aria-hidden","false");}
