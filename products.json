@@ -91,12 +91,32 @@
   },
   {
     "id": 10,
-    "name": "Computer Keyboard",
+    "name": "Foldable Keyboard",
     "category": "Accessories",
-    "price": null,
-    "description": "Keyboard options for everyday computer use. Ask for a quote.",
-    "art": "KEYBOARD",
-    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=900&q=85",
+    "price": 10000,
+    "description": "A compact foldable keyboard for convenient typing on the go.",
+    "art": "FOLDABLE KEYBOARD",
+    "image": "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=900&q=85",
+    "available": true
+  },
+  {
+    "id": 11,
+    "name": "Wireless Keyboard",
+    "category": "Accessories",
+    "price": 12000,
+    "description": "A wireless keyboard for a clean, cable-free workspace.",
+    "art": "WIRELESS KEYBOARD",
+    "image": "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=900&q=85",
+    "available": true
+  },
+  {
+    "id": 12,
+    "name": "Mini Keyboard",
+    "category": "Accessories",
+    "price": 8000,
+    "description": "A compact mini keyboard that saves desk space.",
+    "art": "MINI KEYBOARD",
+    "image": "https://images.unsplash.com/photo-1541140532154-b024d705b90a?auto=format&fit=crop&w=900&q=85",
     "available": true
   }
 ]
