@@ -41,6 +41,8 @@
     @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
     @media(max-width:620px){.hero{padding:64px 0}.hero-visual{animation:none}.trust-item{padding-left:12px}.logo{font-size:14px}}
     @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.hero-visual{animation:none}}
+    /* Jenny's supplied brand image replaces the JDH initials on the laptop screen */
+    .screen:after{content:"";display:block;height:100%;background-image:url("https://i.ibb.co/bgkLdf8W/1794146632432.jpg");background-repeat:no-repeat;background-position:center;background-size:contain;color:transparent;font-size:0;letter-spacing:0}
     /* Refined editorial storefront and product artwork */
     :root{--bg:#080d16;--panel:#111d2b;--line:#344253;--blue:#d0b58d}
     body{background:linear-gradient(180deg,#080e18 0%,#0b1421 48%,#080e18 100%);font-feature-settings:"ss01" on}
