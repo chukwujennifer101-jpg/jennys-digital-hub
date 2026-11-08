@@ -227,7 +227,7 @@
     <button class="btn full-button" id="checkoutButton" type="button">Continue to checkout</button>
     <section class="checkout" id="checkout">
       <h3>Delivery and order details</h3>
-      <p class="notice">Your order details will be sent to WhatsApp. For Bank Transfer, use the account details shown below after confirming your order total with us. Paystack checkout is not active yet.</p><div id="bankTransferDetails" class="bank-transfer-details" hidden><strong>Bank transfer details</strong><p>Bank: GLOBUS BANK<br>Account name: CHUKWU JENNIFER<br>Account number: 8000080000</p><p class="notice">Transfer only the confirmed order amount. Send your payment receipt on WhatsApp. Your order remains pending until payment is checked and confirmed.</p></div>
+      <p class="notice">Complete your order securely on this website. Your order will be recorded before payment.</p><div id="bankTransferDetails" class="bank-transfer-details" hidden><strong>Bank transfer details</strong><p>Bank: GLOBUS BANK<br>Account name: CHUKWU JENNIFER<br>Account number: 8000080000</p><p class="notice">Transfer the exact order total. Use your order number as the transfer narration. Your order remains pending until payment is verified.</p></div>
       <form id="checkoutForm">
         <label>Full name<input class="field" name="customerName" autocomplete="name" required maxlength="100"></label>
         <label>Phone number<input class="field" name="phone" type="tel" autocomplete="tel" required maxlength="25"></label>
@@ -326,15 +326,47 @@
     $("searchInput").addEventListener("input",renderProducts);$("categoryFilter").addEventListener("change",renderProducts);
     $("checkoutButton").addEventListener("click",()=>{if(!Object.keys(cart).length){$("checkoutMessage").textContent="Add a product to your cart first.";$("checkoutMessage").className="status-message error";return;}$("checkout").classList.toggle("open");$("checkoutMessage").textContent="";});
     $("checkoutForm").elements.payment.addEventListener("change",event=>{$("bankTransferDetails").hidden=event.target.value!=="Bank Transfer";});
-    $("checkoutForm").addEventListener("submit",event=>{
-      event.preventDefault();const items=Object.values(cart);if(!items.length)return;
-      const data=new FormData(event.currentTarget);
-      const lines=items.map(item=>"- "+item.name+" | Quantity: "+item.quantity+" | Unit price: "+(item.price===null||item.price===undefined?"To be confirmed":money(item.price))+" | Line total: "+(item.price===null||item.price===undefined?"Pending":money(Number(item.price)*item.quantity)));
-      const total=items.reduce((sum,item)=>sum+(item.price===null||item.price===undefined?0:Number(item.price)*item.quantity),0);
-      const unpriced=items.filter(item=>item.price===null||item.price===undefined);
-      const message=["Hello Jenny's Digital Hub, I would like to place an order.","","Name: "+data.get("customerName"),"Phone: "+data.get("phone"),"Delivery address: "+data.get("address"),"Payment preference: "+data.get("payment"),"","Items:",...lines,"","Number of product types: "+items.length,"Total units ordered: "+items.reduce((sum,item)=>sum+item.quantity,0),"Priced items subtotal: "+money(total),"Items awaiting price: "+(unpriced.length?unpriced.map(item=>item.name+" x"+item.quantity).join(", "):"None"),"Payment method selected: "+data.get("payment"),"Please confirm availability, final order total and delivery. If Bank Transfer is selected, the bank details are GLOBUS BANK, CHUKWU JENNIFER, 8000080000. I will send proof of payment after transfer. Paystack checkout is not yet active."].join("\n");
-      $("checkoutMessage").textContent="Opening WhatsApp with your item selections, quantities and payment method. Review and send the order there.";
-      window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank","noopener,noreferrer");
+    $("checkoutForm").addEventListener("submit",async event=>{
+      event.preventDefault();
+      const items=Object.values(cart);
+      if(!items.length)return;
+      const form=event.currentTarget;
+      const data=new FormData(form);
+      const button=form.querySelector('button[type="submit"]');
+      const message=$("checkoutMessage");
+      const orderItems=items.map(item=>({id:item.id,name:item.name,quantity:item.quantity}));
+      button.disabled=true;
+      message.className="status-message";
+      message.textContent="Creating your order securely…";
+      try{
+        const response=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+          customer:{name:String(data.get("customerName")).trim(),phone:String(data.get("phone")).trim(),address:String(data.get("address")).trim()},
+          paymentMethod:String(data.get("payment")),
+          items:orderItems
+        })});
+        const result=await response.json().catch(()=>({}));
+        if(!response.ok)throw new Error(result.error||"We could not create your order. Please try again.");
+        if(result.authorizationUrl){
+          message.textContent="Your order has been created. Redirecting to Paystack secure payment…";
+          window.location.assign(result.authorizationUrl);
+          return;
+        }
+        if(result.paymentMethod==="Bank Transfer"){
+          message.className="status-message success";
+          message.textContent="Order "+result.orderId+" created successfully. Total: "+money(result.total)+". Transfer to GLOBUS BANK, CHUKWU JENNIFER, 8000080000. Use "+result.orderId+" as the transfer narration. Your order will remain pending until we verify the transfer.";
+          $("bankTransferDetails").hidden=false;
+          $("bankTransferDetails").innerHTML="<strong>Bank transfer details</strong><p>Bank: GLOBUS BANK<br>Account name: CHUKWU JENNIFER<br>Account number: 8000080000</p><p>Order number: <strong>"+result.orderId+"</strong><br>Amount to transfer: <strong>"+money(result.total)+"</strong></p><p class='notice'>Use your order number as the transfer narration. Payment is confirmed manually before processing.</p>";
+          form.reset();
+          $("bankTransferDetails").hidden=false;
+          Object.keys(cart).forEach(key=>delete cart[key]);
+          renderCart();
+          return;
+        }
+        throw new Error("The payment service did not return a secure checkout link.");
+      }catch(error){
+        message.className="status-message error";
+        message.textContent=error.message;
+      }finally{button.disabled=false;}
     });
     // Subtle scroll-reveal motion; content remains visible when motion is reduced or unsupported.
     const revealTargets = document.querySelectorAll(".hero-grid,.trust-item,.section-head,.product-card,.about-grid > div,.benefit,.contact-panel");
