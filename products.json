@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "Business Laptop",
+    "category": "Laptops",
+    "price": 250000,
+    "description": "A laptop for studying, office work and business.",
+    "art": "LAPTOP",
+    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85",
+    "available": true
+  },
+  {
+    "id": 2,
+    "name": "Laptop Charger",
+    "category": "Accessories",
+    "price": 12000,
+    "description": "Replacement charger. Confirm compatibility before buying.",
+    "art": "CHARGER",
+    "image": "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=900&q=85",
+    "available": true
+  },
+  {
+    "id": 3,
+    "name": "Laptop Battery",
+    "category": "Accessories",
+    "price": 18000,
+    "description": "HP EliteBook replacement battery options. Confirm your exact model before buying.",
+    "art": "BATTERY",
+    "image": "https://cdn.pixabay.com/photo/2020/05/23/12/53/notebook-5209437_1280.jpg",
+    "available": true
+  },
+  {
+    "id": 4,
+    "name": "Laptop RAM",
+    "category": "Components",
+    "price": 15000,
+    "description": "Memory upgrade options. Confirm your laptop type.",
+    "art": "RAM",
+    "image": "https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=900&q=85",
+    "available": true
+  },
+  {
+    "id": 5,
+    "name": "External Hard Drive",
+    "category": "Storage",
+    "price": 28000,
+    "description": "Extra storage for your files and school projects.",
+    "art": "STORAGE",
+    "image": "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=900&q=85",
+    "available": true
+  },
+  {
+    "id": 6,
+    "name": "Wireless Mouse",
+    "category": "Accessories",
+    "price": 6500,
+    "description": "A practical mouse for everyday computer use.",
+    "art": "MOUSE",
+    "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=85",
+    "available": true
+  },
+  {
+    "id": 7,
+    "name": "USB Flash Drive",
+    "category": "Storage",
+    "price": 5000,
+    "description": "Portable storage for documents and other files.",
+    "art": "USB",
+    "image": "https://images.unsplash.com/photo-1618410320928-25228d811631?auto=format&fit=crop&w=900&q=85",
+    "available": true
+  },
+  {
+    "id": 8,
+    "name": "Computer Headphones",
+    "category": "Accessories",
+    "price": 9000,
+    "description": "Headphones for calls, classes and entertainment.",
+    "art": "HEADPHONES",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85",
+    "available": true
+  },
+  {
+    "id": 9,
+    "name": "Hard Drive Casing",
+    "category": "Storage",
+    "price": null,
+    "description": "Casing options for compatible internal drives. Ask for a quote.",
+    "art": "CASING",
+    "image": "https://i.ibb.co/rKjG8Tnp/51856-1770921162-removebg-preview.png",
+    "available": true
+  },
+  {
+    "id": 10,
+    "name": "Computer Keyboard",
+    "category": "Accessories",
+    "price": null,
+    "description": "Keyboard options for everyday computer use. Ask for a quote.",
+    "art": "KEYBOARD",
+    "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=900&q=85",
+    "available": true
+  }
+]
