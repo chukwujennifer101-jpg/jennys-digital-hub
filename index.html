@@ -22,6 +22,7 @@
     @media(max-width:850px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-grid{grid-template-columns:1fr .8fr;gap:25px}.hero{padding:70px 0}.hero-visual{min-height:250px}.screen{height:145px}.about-grid{gap:25px}}
     @media(max-width:620px){.nav{min-height:66px}.navlinks{display:none}.hero-grid,.about-grid{grid-template-columns:1fr}.hero{padding:58px 0}.hero-visual{min-height:220px}.screen{height:130px}.trust-grid{grid-template-columns:1fr;gap:12px}.section{padding:58px 0}.section-head{display:block}.product-grid{gap:12px}.product-image{height:120px}.product-info{padding:13px}.product-info p{min-height:65px}.product-bottom{align-items:flex-start;flex-direction:column}.add-button{width:100%}.contact-panel{padding:28px 18px}.footer-row{flex-direction:column}.filters select{flex:1}.cart-drawer{padding:18px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+    .bank-transfer-details{margin:12px 0;padding:15px;border:1px solid #8d795c;border-radius:10px;background:#111d2b}.bank-transfer-details strong{display:block;color:var(--blue);margin-bottom:7px}.bank-transfer-details p{margin:5px 0}
     /* Premium brand refinements */
     .logo{font-size:17px;letter-spacing:1.1px}.logo span{color:var(--blue)}
     .navlinks a{position:relative;transition:color .25s}.navlinks a:after{content:"";position:absolute;left:0;right:100%;bottom:-8px;height:1px;background:var(--blue);transition:right .25s}.navlinks a:hover:after{right:0}
@@ -226,7 +227,7 @@
     <button class="btn full-button" id="checkoutButton" type="button">Continue to checkout</button>
     <section class="checkout" id="checkout">
       <h3>Delivery and order details</h3>
-      <p class="notice">Your order details will be sent to WhatsApp. We will confirm stock and the final amount. Paystack payment instructions or bank transfer details will be provided after confirmation.</p>
+      <p class="notice">Your order details will be sent to WhatsApp. For Bank Transfer, use the account details shown below after confirming your order total with us. Paystack checkout is not active yet.</p><div id="bankTransferDetails" class="bank-transfer-details" hidden><strong>Bank transfer details</strong><p>Bank: GLOBUS BANK<br>Account name: CHUKWU JENNIFER<br>Account number: 8000080000</p><p class="notice">Transfer only the confirmed order amount. Send your payment receipt on WhatsApp. Your order remains pending until payment is checked and confirmed.</p></div>
       <form id="checkoutForm">
         <label>Full name<input class="field" name="customerName" autocomplete="name" required maxlength="100"></label>
         <label>Phone number<input class="field" name="phone" type="tel" autocomplete="tel" required maxlength="25"></label>
@@ -324,13 +325,14 @@
     document.addEventListener("keydown",event=>{if(event.key==="Escape")closeCart();});
     $("searchInput").addEventListener("input",renderProducts);$("categoryFilter").addEventListener("change",renderProducts);
     $("checkoutButton").addEventListener("click",()=>{if(!Object.keys(cart).length){$("checkoutMessage").textContent="Add a product to your cart first.";$("checkoutMessage").className="status-message error";return;}$("checkout").classList.toggle("open");$("checkoutMessage").textContent="";});
+    $("checkoutForm").elements.payment.addEventListener("change",event=>{$("bankTransferDetails").hidden=event.target.value!=="Bank Transfer";});
     $("checkoutForm").addEventListener("submit",event=>{
       event.preventDefault();const items=Object.values(cart);if(!items.length)return;
       const data=new FormData(event.currentTarget);
       const lines=items.map(item=>"- "+item.name+" | Quantity: "+item.quantity+" | Unit price: "+(item.price===null||item.price===undefined?"To be confirmed":money(item.price))+" | Line total: "+(item.price===null||item.price===undefined?"Pending":money(Number(item.price)*item.quantity)));
       const total=items.reduce((sum,item)=>sum+(item.price===null||item.price===undefined?0:Number(item.price)*item.quantity),0);
       const unpriced=items.filter(item=>item.price===null||item.price===undefined);
-      const message=["Hello Jenny's Digital Hub, I would like to place an order.","","Name: "+data.get("customerName"),"Phone: "+data.get("phone"),"Delivery address: "+data.get("address"),"Payment preference: "+data.get("payment"),"","Items:",...lines,"","Number of product types: "+items.length,"Total units ordered: "+items.reduce((sum,item)=>sum+item.quantity,0),"Priced items subtotal: "+money(total),"Items awaiting price: "+(unpriced.length?unpriced.map(item=>item.name+" x"+item.quantity).join(", "):"None"),"Payment method selected: "+data.get("payment"),"Please confirm availability, final order total and delivery. If Paystack is selected, send the official Paystack payment instructions; if Bank Transfer is selected, send the bank details."].join("\n");
+      const message=["Hello Jenny's Digital Hub, I would like to place an order.","","Name: "+data.get("customerName"),"Phone: "+data.get("phone"),"Delivery address: "+data.get("address"),"Payment preference: "+data.get("payment"),"","Items:",...lines,"","Number of product types: "+items.length,"Total units ordered: "+items.reduce((sum,item)=>sum+item.quantity,0),"Priced items subtotal: "+money(total),"Items awaiting price: "+(unpriced.length?unpriced.map(item=>item.name+" x"+item.quantity).join(", "):"None"),"Payment method selected: "+data.get("payment"),"Please confirm availability, final order total and delivery. If Bank Transfer is selected, the bank details are GLOBUS BANK, CHUKWU JENNIFER, 8000080000. I will send proof of payment after transfer. Paystack checkout is not yet active."].join("\n");
       $("checkoutMessage").textContent="Opening WhatsApp with your item selections, quantities and payment method. Review and send the order there.";
       window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank","noopener,noreferrer");
     });
