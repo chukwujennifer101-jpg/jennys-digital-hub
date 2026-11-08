@@ -83,8 +83,8 @@
     "id": 9,
     "name": "Hard Drive Casing",
     "category": "Storage",
-    "price": null,
-    "description": "Casing options for compatible internal drives. Ask for a quote.",
+    "price": 3500,
+    "description": "Casing options for compatible internal drives.",
     "art": "CASING",
     "image": "https://i.ibb.co/rKjG8Tnp/51856-1770921162-removebg-preview.png",
     "available": true
