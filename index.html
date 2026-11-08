@@ -60,6 +60,8 @@
     .product-image{height:184px;padding:12px;background:radial-gradient(ellipse at 50% 50%,#34485c,#152435 72%);overflow:hidden}
     .product-image img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 12px 14px #0005);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
     .product-card:hover .product-image img{transform:translateY(-4px) scale(1.045)}
+    .product-image.battery-product-image{background:linear-gradient(145deg,#26394b,#111d2b);padding:7px}
+    .product-image.battery-product-image img{object-fit:cover;object-position:center;filter:drop-shadow(0 10px 12px #0006)}
     .product-info{padding:19px}
     .product-info h3{font-size:16px;letter-spacing:-.2px}
     .product-info p{line-height:1.65}
@@ -167,7 +169,7 @@
       if(!matches.length){const empty=document.createElement("p");empty.className="empty";empty.textContent="No matching products found."; $("productGrid").append(empty);return;}
       matches.forEach(p=>{
         const card=document.createElement("article");card.className="product-card";
-        const image=document.createElement("div");image.className="product-image";const artwork=document.createElement("img");artwork.src=p.image;artwork.alt=p.name+" product image";artwork.loading="lazy";image.append(artwork);
+        const image=document.createElement("div");image.className="product-image"+(p.id===3?" battery-product-image":"");const artwork=document.createElement("img");artwork.src=p.image;artwork.alt=p.name+" product photograph";artwork.loading="lazy";image.append(artwork);
         const info=document.createElement("div");info.className="product-info";
         const cat=document.createElement("span");cat.className="category";cat.textContent=p.category;
         const title=document.createElement("h3");title.textContent=p.name;
