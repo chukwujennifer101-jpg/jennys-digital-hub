@@ -60,8 +60,8 @@
     .product-image{height:184px;padding:12px;background:radial-gradient(ellipse at 50% 50%,#34485c,#152435 72%);overflow:hidden}
     .product-image img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 12px 14px #0005);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
     .product-card:hover .product-image img{transform:translateY(-4px) scale(1.045)}
-    .product-image.battery-product-image{background:linear-gradient(145deg,#26394b,#111d2b);padding:7px}
-    .product-image.battery-product-image img{object-fit:cover;object-position:center;filter:drop-shadow(0 10px 12px #0006)}
+    .product-image.battery-product-image{background:radial-gradient(ellipse at 50% 48%,#3b4b59 0%,#172434 72%);padding:12px}
+    .product-image.battery-product-image img{object-fit:contain;object-position:center;filter:drop-shadow(0 14px 16px #0009)}
     .product-info{padding:19px}
     .product-info h3{font-size:16px;letter-spacing:-.2px}
     .product-info p{line-height:1.65}
@@ -144,10 +144,49 @@
   </aside>
   <script>
     const WHATSAPP_NUMBER = "2349017402219";
+    const HP_ELITEBOOK_BATTERY_IMAGE = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#34495b"/><stop offset=".52" stop-color="#1b2b3a"/><stop offset="1" stop-color="#101a26"/></linearGradient>
+ <radialGradient id="glow"><stop stop-color="#607080" stop-opacity=".55"/><stop offset="1" stop-color="#182636" stop-opacity="0"/></radialGradient>
+ <linearGradient id="case" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#515d65"/><stop offset=".18" stop-color="#252e35"/><stop offset=".65" stop-color="#10161c"/><stop offset="1" stop-color="#080d12"/></linearGradient>
+ <linearGradient id="top" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#626d73"/><stop offset=".24" stop-color="#333d44"/><stop offset=".7" stop-color="#151c22"/><stop offset="1" stop-color="#080d12"/></linearGradient>
+ <linearGradient id="label" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f4f5f2"/><stop offset="1" stop-color="#c8d0d1"/></linearGradient>
+ <linearGradient id="metal"><stop stop-color="#6d7b82"/><stop offset=".5" stop-color="#d4dadd"/><stop offset="1" stop-color="#64717a"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="20"/></filter>
+</defs>
+<rect width="900" height="600" rx="28" fill="url(#bg)"/><ellipse cx="450" cy="300" rx="390" ry="260" fill="url(#glow)"/>
+<ellipse cx="455" cy="455" rx="310" ry="43" fill="#02060b" opacity=".72" filter="url(#shadow)"/>
+<!-- raised connector edge -->
+<path d="M183 194 L674 143 Q701 141 713 164 L744 354 Q748 380 720 389 L232 454 Q204 458 196 433 L165 229 Q160 203 183 194Z" fill="#080d12" stroke="#75818a" stroke-width="5"/>
+<!-- battery body -->
+<path d="M164 178 L655 126 Q688 123 700 151 L735 355 Q739 383 710 392 L219 458 Q188 462 180 434 L145 214 Q141 187 164 178Z" fill="url(#case)" stroke="#77838a" stroke-width="5"/>
+<path d="M164 178 L655 126 Q688 123 700 151 L710 208 L176 270 L145 214 Q141 187 164 178Z" fill="url(#top)" opacity=".98"/>
+<path d="M176 270 L710 208 L735 355 Q739 383 710 392 L219 458 Q188 462 180 434Z" fill="#111920" opacity=".72"/>
+<!-- casing seams and ribs -->
+<path d="M178 259 L711 197 M188 425 L721 354" stroke="#89949a" stroke-opacity=".52" stroke-width="3"/>
+<path d="M205 285 L222 414 M224 282 L241 411 M673 227 L694 354" stroke="#87939a" stroke-opacity=".2" stroke-width="4"/>
+<path d="M194 204 L654 155" stroke="#c0c8ca" stroke-opacity=".34" stroke-width="5"/>
+<!-- battery label -->
+<path d="M300 235 L567 205 Q579 204 582 217 L600 326 Q602 338 590 340 L324 375 Q312 377 309 364 L291 250 Q289 238 300 235Z" fill="url(#label)" stroke="#9aa5a9" stroke-width="3"/>
+<path d="M316 249 L560 222" stroke="#89959a" stroke-width="2"/>
+<text x="328" y="278" fill="#18232b" font-family="Arial,sans-serif" font-size="31" font-weight="700" letter-spacing="2">HP</text>
+<text x="390" y="276" fill="#18232b" font-family="Arial,sans-serif" font-size="24" font-weight="700">ELITEBOOK</text>
+<text x="328" y="309" fill="#35434a" font-family="Arial,sans-serif" font-size="17" font-weight="700">RECHARGEABLE Li-ion BATTERY</text>
+<text x="328" y="336" fill="#35434a" font-family="Arial,sans-serif" font-size="17">11.1V  •  4400mAh  •  49Wh</text>
+<text x="328" y="357" fill="#536169" font-family="Arial,sans-serif" font-size="10" letter-spacing="1">FOR COMPATIBLE HP ELITEBOOK MODELS</text>
+<!-- terminal strip -->
+<path d="M623 171 L682 165 L691 218 L632 225Z" fill="#0a1015" stroke="#89949a" stroke-width="3"/>
+<g fill="url(#metal)" stroke="#45545d" stroke-width="2"><path d="M637 180l8-1 3 25-8 1z"/><path d="M650 178l8-1 3 25-8 1z"/><path d="M663 177l8-1 3 25-8 1z"/></g>
+<!-- screws and molded details -->
+<g fill="#87939a" stroke="#1a242b" stroke-width="3"><circle cx="188" cy="211" r="8"/><circle cx="690" cy="158" r="8"/><circle cx="715" cy="365" r="8"/><circle cx="205" cy="433" r="8"/></g>
+<g stroke="#1b252c" stroke-width="3" opacity=".85"><path d="M183 211h10m-5-5v10M685 158h10m-5-5v10M710 365h10m-5-5v10M200 433h10m-5-5v10"/></g>
+<path d="M241 391 L274 387 M250 400 L283 396" stroke="#87939a" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+<text x="450" y="530" text-anchor="middle" fill="#e1d0b3" font-family="Arial,sans-serif" font-size="19" font-weight="700" letter-spacing="5">HP ELITEBOOK BATTERY</text>
+</svg>`);
     const products = [
       {id:1,name:"Business Laptop",category:"Laptops",price:250000,description:"A laptop for studying, office work and business.",art:"LAPTOP",image:"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85"},
       {id:2,name:"Laptop Charger",category:"Accessories",price:12000,description:"Replacement charger. Confirm compatibility before buying.",art:"CHARGER",image:"https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=900&q=85"},
-      {id:3,name:"Laptop Battery",category:"Accessories",price:18000,description:"Replacement battery options for compatible laptops.",art:"BATTERY",image:"https://loremflickr.com/900/600/laptop,battery"},
+      {id:3,name:"Laptop Battery",category:"Accessories",price:18000,description:"HP EliteBook replacement battery options. Confirm your exact model before buying.",art:"BATTERY",image:HP_ELITEBOOK_BATTERY_IMAGE},
       {id:4,name:"Laptop RAM",category:"Components",price:15000,description:"Memory upgrade options. Confirm your laptop type.",art:"RAM",image:"https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=900&q=85"},
       {id:5,name:"External Hard Drive",category:"Storage",price:28000,description:"Extra storage for your files and school projects.",art:"STORAGE",image:"https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=900&q=85"},
       {id:6,name:"Wireless Mouse",category:"Accessories",price:6500,description:"A practical mouse for everyday computer use.",art:"MOUSE",image:"https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=85"},
