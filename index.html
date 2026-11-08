@@ -152,6 +152,16 @@
       .screen{height:145px}
       .base{margin:0 -17px}
     }
+
+    /* Computer Keyboard choices grouped inside the Accessories listing */
+    .keyboard-options{display:grid;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+    .keyboard-options-heading{margin:0;color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .keyboard-option{display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px;border:1px solid var(--line);border-radius:10px;background:#0b1522}
+    .keyboard-option img{width:64px;height:58px;object-fit:cover;border-radius:7px;background:#1a2a3b}
+    .keyboard-option strong{display:block;font-size:13px;line-height:1.35}
+    .keyboard-option .price{display:block;margin-top:4px;font-size:13px}
+    .keyboard-option .add-button{white-space:nowrap;padding:8px 10px;font-size:12px}
+    @media(max-width:420px){.keyboard-option{grid-template-columns:52px minmax(0,1fr);gap:8px}.keyboard-option img{width:52px;height:52px}.keyboard-option .add-button{grid-column:2;width:100%}}
   </style>
 </head>
 <body>
@@ -239,7 +249,7 @@
     function renderProducts(){
       const term = $("searchInput").value.trim().toLowerCase();
       const category = $("categoryFilter").value;
-      const matches = products.filter(p => p.available !== false && (category === "All" || p.category === category) && (p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term)));
+      const matches = products.filter(p => p.available !== false && (category === "All" || p.category === category) && (p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term) || (p.options||[]).some(option=>option.name.toLowerCase().includes(term))));
       $("productGrid").replaceChildren();
       if(!matches.length){const empty=document.createElement("p");empty.className="empty";empty.textContent="No matching products found."; $("productGrid").append(empty);return;}
       matches.forEach(p=>{
@@ -249,13 +259,27 @@
         const cat=document.createElement("span");cat.className="category";cat.textContent=p.category;
         const title=document.createElement("h3");title.textContent=p.name;
         const desc=document.createElement("p");desc.textContent=p.description;
-        const bottom=document.createElement("div");bottom.className="product-bottom";
-        const price=document.createElement("span");price.className="price";price.textContent=p.price===null?"Ask for price":money(p.price);
-        const button=document.createElement("button");button.className="btn add-button";button.type="button";button.textContent="Add to cart";button.addEventListener("click",()=>{addToCart(p.id);openCart();});
-        bottom.append(price,button);info.append(cat,title,desc,bottom);card.append(image,info);$("productGrid").append(card);
+        if(Array.isArray(p.options)&&p.options.length){
+          const options=document.createElement("div");options.className="keyboard-options";
+          const heading=document.createElement("h4");heading.className="keyboard-options-heading";heading.textContent="Computer Keyboard options";options.append(heading);
+          p.options.filter(option=>option.available!==false).forEach(option=>{
+            const choice=document.createElement("div");choice.className="keyboard-option";
+            const optionImage=document.createElement("img");optionImage.src=option.image;optionImage.alt=option.name+" product photograph";optionImage.loading="lazy";optionImage.onerror=()=>{optionImage.style.visibility="hidden";};
+            const details=document.createElement("div");const optionName=document.createElement("strong");optionName.textContent=option.name;const optionPrice=document.createElement("span");optionPrice.className="price";optionPrice.textContent=money(option.price);details.append(optionName,optionPrice);
+            const add=document.createElement("button");add.className="btn add-button";add.type="button";add.textContent="Add to cart";add.addEventListener("click",()=>{addToCart({...option,name:"Computer Keyboard — "+option.name,category:p.category});openCart();});
+            choice.append(optionImage,details,add);options.append(choice);
+          });
+          info.append(cat,title,desc,options);
+        }else{
+          const bottom=document.createElement("div");bottom.className="product-bottom";
+          const price=document.createElement("span");price.className="price";price.textContent=p.price===null?"Ask for price":money(p.price);
+          const button=document.createElement("button");button.className="btn add-button";button.type="button";button.textContent="Add to cart";button.addEventListener("click",()=>{addToCart(p.id);openCart();});
+          bottom.append(price,button);info.append(cat,title,desc,bottom);
+        }
+        card.append(image,info);$("productGrid").append(card);
       });
     }
-    function addToCart(id){const product=products.find(p=>p.id===id);if(!product)return;if(cart[id])cart[id].quantity++;else cart[id]={...product,quantity:1};renderCart();}
+    function addToCart(productOrId){const product=typeof productOrId==="object"?productOrId:products.find(p=>p.id===productOrId);if(!product)return;const key=product.id;if(cart[key])cart[key].quantity++;else cart[key]={...product,quantity:1};renderCart();}
     function changeQuantity(id,delta){if(!cart[id])return;cart[id].quantity+=delta;if(cart[id].quantity<1)delete cart[id];renderCart();}
     function renderCart(){
       const items=Object.values(cart);const quantity=items.reduce((sum,item)=>sum+item.quantity,0);
