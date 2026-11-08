@@ -221,17 +221,18 @@
     <div class="cart-head"><h2>Your cart</h2><button class="close-button" id="closeCart" type="button">Close</button></div>
     <div id="cartItems"><p class="notice">Your cart is empty.</p></div>
     <div class="cart-total"><span>Subtotal</span><span id="cartTotal">₦0</span></div>
-    <p class="notice">Your order will be sent to our WhatsApp for confirmation. No online payment is collected on this website.</p>
+    <p class="notice">Review each item and quantity before checkout. Payment methods: Paystack or Bank Transfer only.</p>
+    <p class="notice" id="cartSummary" aria-live="polite">0 products · 0 units</p>
     <button class="btn full-button" id="checkoutButton" type="button">Continue to checkout</button>
     <section class="checkout" id="checkout">
       <h3>Delivery and order details</h3>
-      <p class="notice">After you submit, WhatsApp will open with your order details. We will confirm stock, delivery and bank transfer details with you.</p>
+      <p class="notice">Your order details will be sent to WhatsApp. We will confirm stock and the final amount. Paystack payment instructions or bank transfer details will be provided after confirmation.</p>
       <form id="checkoutForm">
         <label>Full name<input class="field" name="customerName" autocomplete="name" required maxlength="100"></label>
         <label>Phone number<input class="field" name="phone" type="tel" autocomplete="tel" required maxlength="25"></label>
         <label>Delivery address<textarea class="field" name="address" autocomplete="street-address" required maxlength="500"></textarea></label>
-        <label>Payment preference<select class="field" name="payment" required><option value="">Choose a preference</option><option value="Bank transfer">Bank transfer</option><option value="Pay on delivery (subject to confirmation)">Pay on delivery (subject to confirmation)</option></select></label>
-        <button class="btn full-button" type="submit">Send order to WhatsApp</button>
+        <label>Payment method<select class="field" name="payment" required><option value="">Choose payment method</option><option value="Paystack">Paystack</option><option value="Bank Transfer">Bank Transfer</option></select></label>
+        <button class="btn full-button" type="submit">Continue with selected payment method</button>
       </form>
       <p class="status-message" id="checkoutMessage" role="status"></p>
     </section>
@@ -298,8 +299,11 @@
     function changeQuantity(id,delta){if(!cart[id])return;cart[id].quantity+=delta;if(cart[id].quantity<1)delete cart[id];renderCart();}
     function renderCart(){
       const items=Object.values(cart);const quantity=items.reduce((sum,item)=>sum+item.quantity,0);
-      const total=items.reduce((sum,item)=>sum+(item.price||0)*item.quantity,0);
-      $("cartCount").textContent=quantity;$("cartTotal").textContent=money(total);$("cartItems").replaceChildren();
+      const total=items.reduce((sum,item)=>sum+(Number.isFinite(Number(item.price))?Number(item.price)*item.quantity:0),0);
+      const unpricedUnits=items.reduce((sum,item)=>sum+(item.price===null||item.price===undefined?item.quantity:0),0);
+      $("cartCount").textContent=quantity;
+      $("cartSummary").textContent=items.length+" selected product type"+(items.length===1?"":"s")+" · "+quantity+" total unit"+(quantity===1?"":"s")+(unpricedUnits?" · "+unpricedUnits+" awaiting price":"");
+      $("cartTotal").textContent=money(total)+(unpricedUnits?" + price confirmation":"");$("cartItems").replaceChildren();
       if(!items.length){const empty=document.createElement("p");empty.className="notice";empty.textContent="Your cart is empty."; $("cartItems").append(empty);$("checkout").classList.remove("open");return;}
       items.forEach(item=>{
         const row=document.createElement("div");row.className="cart-item";const main=document.createElement("div");main.className="cart-item-main";const art=document.createElement("img");art.className="cart-product-art";art.src=item.image;art.alt=item.id===3?"Laptop battery product image":"";art.loading="lazy";art.onerror=()=>{if(item.id===3&&art.dataset.fallback!=="true"){art.dataset.fallback="true";art.src=HP_ELITEBOOK_BATTERY_IMAGE;}else{art.style.visibility="hidden";}};const details=document.createElement("div");details.className="cart-item-details";
@@ -323,10 +327,11 @@
     $("checkoutForm").addEventListener("submit",event=>{
       event.preventDefault();const items=Object.values(cart);if(!items.length)return;
       const data=new FormData(event.currentTarget);
-      const lines=items.map(item=>"- "+item.name+" x"+item.quantity+" — "+(item.price===null?"Price to confirm":money(item.price*item.quantity)));
-      const total=items.reduce((sum,item)=>sum+(item.price||0)*item.quantity,0);
-      const message=["Hello Jenny's Digital Hub, I would like to place an order.","","Name: "+data.get("customerName"),"Phone: "+data.get("phone"),"Delivery address: "+data.get("address"),"Payment preference: "+data.get("payment"),"","Items:",...lines,"","Listed subtotal (excluding items requiring a quote): "+money(total),"Please confirm availability, final total, delivery and bank transfer details."].join("\n");
-      $("checkoutMessage").textContent="Opening WhatsApp with your order details. Please review and send the message there.";
+      const lines=items.map(item=>"- "+item.name+" | Quantity: "+item.quantity+" | Unit price: "+(item.price===null||item.price===undefined?"To be confirmed":money(item.price))+" | Line total: "+(item.price===null||item.price===undefined?"Pending":money(Number(item.price)*item.quantity)));
+      const total=items.reduce((sum,item)=>sum+(item.price===null||item.price===undefined?0:Number(item.price)*item.quantity),0);
+      const unpriced=items.filter(item=>item.price===null||item.price===undefined);
+      const message=["Hello Jenny's Digital Hub, I would like to place an order.","","Name: "+data.get("customerName"),"Phone: "+data.get("phone"),"Delivery address: "+data.get("address"),"Payment preference: "+data.get("payment"),"","Items:",...lines,"","Number of product types: "+items.length,"Total units ordered: "+items.reduce((sum,item)=>sum+item.quantity,0),"Priced items subtotal: "+money(total),"Items awaiting price: "+(unpriced.length?unpriced.map(item=>item.name+" x"+item.quantity).join(", "):"None"),"Payment method selected: "+data.get("payment"),"Please confirm availability, final order total and delivery. If Paystack is selected, send the official Paystack payment instructions; if Bank Transfer is selected, send the bank details."].join("\n");
+      $("checkoutMessage").textContent="Opening WhatsApp with your item selections, quantities and payment method. Review and send the order there.";
       window.open("https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message),"_blank","noopener,noreferrer");
     });
     // Subtle scroll-reveal motion; content remains visible when motion is reduced or unsupported.
