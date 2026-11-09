@@ -107,10 +107,10 @@
     "id": 8,
     "name": "Computer Headphones",
     "category": "Accessories",
-    "price": 9000,
+    "price": 12000,
     "description": "Headphones for calls, classes and entertainment.",
-    "art": "HEADPHONES",
-    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85",
+    "art": "ACCESSORIES",
+    "image": "https://raw.githubusercontent.com/chukwujennifer101-jpg/jennys-digital-hub/main/uploads/1794240485749-images--3-.jpg",
     "available": true
   },
   {
