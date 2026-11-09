@@ -4,10 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>
-  // Use each visitor's local clock: muted slate by day, brighter midnight-and-champagne at night.
+  // Follow the visitor's local clock, with a temporary URL preview override.
+  // Add ?theme=night or ?theme=day to preview either appearance.
   (function(){
+    const requestedTheme = new URLSearchParams(window.location.search).get("theme");
     const hour = new Date().getHours();
-    const theme = (hour >= 18 || hour < 6) ? "night" : "day";
+    const automaticTheme = (hour >= 18 || hour < 6) ? "night" : "day";
+    const theme = requestedTheme === "night" || requestedTheme === "day" ? requestedTheme : automaticTheme;
     document.documentElement.setAttribute("data-jdh-theme", theme);
     const themeColor = document.querySelector('meta[name="theme-color"]');
     if(themeColor) themeColor.setAttribute("content", theme === "night" ? "#080d16" : "#18212b");
