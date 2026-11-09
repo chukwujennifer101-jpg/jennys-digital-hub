@@ -3,20 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script>
-  // Follow the visitor's local clock, with a temporary URL preview override.
-  // Add ?theme=night or ?theme=day to preview either appearance.
-  (function(){
-    const requestedTheme = new URLSearchParams(window.location.search).get("theme");
-    const hour = new Date().getHours();
-    const automaticTheme = (hour >= 18 || hour < 6) ? "night" : "day";
-    const theme = requestedTheme === "night" || requestedTheme === "day" ? requestedTheme : automaticTheme;
-    document.documentElement.setAttribute("data-jdh-theme", theme);
-    const themeColor = document.querySelector('meta[name="theme-color"]');
-    if(themeColor) themeColor.setAttribute("content", theme === "night" ? "#080d16" : "#18212b");
-  })();
-</script>
-
   <meta name="description" content="Shop laptops and computer accessories at Jenny's Digital Hub.">
   <meta name="theme-color" content="#080e1b">
   <title>Jenny's Digital Hub | Laptops & Computer Accessories</title>
@@ -182,118 +168,6 @@
     .keyboard-option .price{display:block;margin-top:4px;font-size:14px;color:var(--blue)}
     .keyboard-option .add-button{white-space:nowrap;padding:9px 11px;font-size:12px}
     @media(max-width:480px){.keyboard-dialog{padding:17px}.keyboard-option{grid-template-columns:64px minmax(0,1fr);gap:9px}.keyboard-option img{width:64px;height:60px}.keyboard-option .add-button{grid-column:2;width:100%}}
-  
-    /* Jenny's Digital Hub — bespoke time-aware brand palette */
-    html{transition:background-color .45s ease,color .45s ease}
-    body,.topbar,.hero,.trust,.section-alt,.product-card,.product-image,.benefit,
-    .contact-panel,.cart-drawer,.keyboard-dialog,.keyboard-option,.field,
-    .bank-transfer-details,.count,.quantity-controls button{
-      transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease;
-    }
-    html[data-jdh-theme="day"]{
-      color-scheme:dark;
-      --bg:#18212b;--panel:#202b36;--panel2:#293642;--line:#3b4854;
-      --text:#d5d8d8;--muted:#aab2b8;--blue:#b9a17c;--blue2:#9f8968;
-    }
-    html[data-jdh-theme="day"] body{
-      background:#18212b!important;color:#d5d8d8!important;
-    }
-    html[data-jdh-theme="day"] .topbar{
-      background:rgba(24,33,43,.96)!important;border-color:#ffffff12!important;
-    }
-    html[data-jdh-theme="day"] .hero{
-      background:linear-gradient(115deg,#293642 0%,#202b36 55%,#18212b 100%)!important;
-    }
-    html[data-jdh-theme="day"] .hero-visual{
-      background:linear-gradient(145deg,#34414c,#222e39)!important;border-color:#ffffff20!important;
-    }
-    html[data-jdh-theme="day"] .trust,
-    html[data-jdh-theme="day"] .section-alt{
-      background:#1d2832!important;
-    }
-    html[data-jdh-theme="day"] .product-card,
-    html[data-jdh-theme="day"] .benefit{
-      background:#222e39!important;border-color:#3b4854!important;box-shadow:0 8px 24px #0002!important;
-    }
-    html[data-jdh-theme="day"] .product-image{
-      background:#2d3a46!important;
-    }
-    html[data-jdh-theme="day"] .contact-panel{
-      background:linear-gradient(135deg,#34414c,#222e39)!important;border-color:#596575!important;
-    }
-    html[data-jdh-theme="day"] .field,
-    html[data-jdh-theme="day"] .keyboard-option{
-      background:#19242e!important;color:#d5d8d8!important;border-color:#46535f!important;
-    }
-    html[data-jdh-theme="day"] .cart-drawer,
-    html[data-jdh-theme="day"] .keyboard-dialog{
-      background:#202b36!important;color:#d5d8d8!important;border-color:#46535f!important;
-    }
-    html[data-jdh-theme="day"] .bank-transfer-details{
-      background:#26323d!important;border-color:#8c795d!important;
-    }
-    html[data-jdh-theme="day"] .btn:not(.secondary),
-    html[data-jdh-theme="day"] .cart-button{
-      background:#b9a17c!important;color:#18212b!important;
-    }
-    html[data-jdh-theme="day"] .btn.secondary{
-      color:#d5d8d8!important;border-color:#64717c!important;
-    }
-    html[data-jdh-theme="day"] .count{
-      background:#3a4651!important;color:#e1e2df!important;
-    }
-    html[data-jdh-theme="day"] .screen{
-      border-color:#77818a!important;
-    }
-    html[data-jdh-theme="night"]{
-      color-scheme:dark;
-      --bg:#080d16;--panel:#111d2b;--panel2:#192a3c;--line:#34465a;
-      --text:#f5f1e8;--muted:#b9c2cc;--blue:#e1c18d;--blue2:#c9a875;
-    }
-    html[data-jdh-theme="night"] body{
-      background:linear-gradient(180deg,#080d16 0%,#0c1725 52%,#080d16 100%)!important;color:#f5f1e8!important;
-    }
-    html[data-jdh-theme="night"] .topbar{background:rgba(7,12,21,.96)!important}
-    html[data-jdh-theme="night"] .hero{
-      background:radial-gradient(ellipse at 78% 38%,rgba(225,193,141,.2),transparent 36%),linear-gradient(115deg,#192b40 0%,#0b1625 58%,#080d16 100%)!important;
-    }
-    html[data-jdh-theme="night"] .hero-visual{
-      background:radial-gradient(ellipse at 50% 78%,rgba(225,193,141,.18),transparent 42%),linear-gradient(145deg,#24394e,#101c2b)!important;
-      border-color:#e1c18d55!important;box-shadow:0 30px 85px #0009,0 0 35px #e1c18d0c!important;
-    }
-    html[data-jdh-theme="night"] .trust,
-    html[data-jdh-theme="night"] .section-alt{background:#0d1928!important}
-    html[data-jdh-theme="night"] .product-card,
-    html[data-jdh-theme="night"] .benefit{
-      background:linear-gradient(155deg,#1a2b3e,#101b29)!important;border-color:#ffffff20!important;
-      box-shadow:0 14px 32px #0004!important;
-    }
-    html[data-jdh-theme="night"] .product-image{background:radial-gradient(ellipse at 50% 50%,#405970,#17283a 74%)!important}
-    html[data-jdh-theme="night"] .contact-panel{
-      background:radial-gradient(ellipse at 85% 0%,#3a4b5e,#111e2d 65%)!important;border-color:#927c5b!important;
-    }
-    html[data-jdh-theme="night"] .field,
-    html[data-jdh-theme="night"] .keyboard-option{
-      background:#0c1725!important;color:#f5f1e8!important;border-color:#3b4e63!important;
-    }
-    html[data-jdh-theme="night"] .cart-drawer,
-    html[data-jdh-theme="night"] .keyboard-dialog{
-      background:#111d2b!important;color:#f5f1e8!important;border-color:#465b70!important;
-    }
-    html[data-jdh-theme="night"] .bank-transfer-details{background:#172638!important;border-color:#c6a878!important}
-    html[data-jdh-theme="night"] .btn:not(.secondary),
-    html[data-jdh-theme="night"] .cart-button{
-      background:#e1c18d!important;color:#111923!important;box-shadow:0 8px 24px #e1c18d18;
-    }
-    html[data-jdh-theme="night"] .btn.secondary{border-color:#718195!important}
-    html[data-jdh-theme="night"] .count{background:#34485e!important;color:#fff!important}
-    html[data-jdh-theme="night"] .category,
-    html[data-jdh-theme="night"] .eyebrow{color:#e1c18d!important}
-    html[data-jdh-theme="night"] .screen{border-color:#8292a2!important}
-    @media(prefers-reduced-motion:reduce){
-      body,.topbar,.hero,.trust,.section-alt,.product-card,.product-image,.benefit,.contact-panel,.cart-drawer,.keyboard-dialog,.keyboard-option,.field{transition:none!important}
-    }
-
   </style>
 </head>
 <body>
