@@ -1,14 +1,14 @@
 # Jenny's Digital Hub — Admin setup
 
-The private product dashboard is available at `/admin.html`. The dashboard and API are deployed with the existing Vercel project.
+The private store dashboard is available at `/admin.html`. It includes product catalogue management and a customer order desk. The dashboard and API are deployed with the existing Vercel project.
 
 ## Required Vercel environment variables
 
-The dashboard intentionally stays locked until all three server-side environment variables are configured. Do not put these values in `index.html`, `admin.html`, or any `NEXT_PUBLIC_*` variable.
+The dashboard intentionally stays locked until the admin security variables are configured. Checkout and order management also require the Blob and Paystack variables below. Do not put these values in `index.html`, `admin.html`, or any `NEXT_PUBLIC_*` variable.
 
 1. `ADMIN_PASSWORD` — choose a long, unique password used only for this dashboard.
 2. `ADMIN_SESSION_SECRET` — generate a random secret of at least 32 bytes (a 64-character or longer random value is recommended).
-3. `GITHUB_TOKEN` — a GitHub fine-grained personal access token limited to this repository, with **Contents: Read and write** permission. No organization-wide access is needed.
+3. `GITHUB_TOKEN` — a GitHub fine-grained personal access token limited to this repository, with **Contents: Read and write** permission. No organization-wide access is needed.\n4. `BLOB_READ_WRITE_TOKEN` — the Vercel Blob read/write token used for private order records.\n5. `PAYSTACK_SECRET_KEY` — the Paystack secret key. Use a test key while testing; only use the live secret key when ready to accept real payments.
 
 In Vercel, open the **jennys-digital-hub** project → **Settings** → **Environment Variables**. Add each variable as a server-side variable for the **Production** environment (and Preview too, if you intend to test the admin on preview deployments). Save them, then redeploy the latest production deployment so the Functions receive the values.
 
@@ -26,6 +26,6 @@ Create the GitHub token under GitHub **Settings → Developer settings → Perso
 
 - The password is checked by a Vercel serverless function. The signed session cookie is HttpOnly, Secure on Vercel, and SameSite=Strict.
 - The GitHub token and session secret are read only by the server-side API and are never sent to the browser.
-- The dashboard page is not linked from the public storefront and is marked noindex. The API enforces authentication for uploads and catalogue writes.
+- The dashboard page is not linked from the public storefront and is marked noindex. The API enforces authentication for product changes and order access.\n- Customer order files are stored as private Vercel Blob objects. The order list displays the most recent 200 orders.\n- Paystack status is verified server-side against the order reference, amount, and NGN currency. A live-key end-to-end test is still required before launch.
 - Product images are public website assets once uploaded; do not upload private or personal images.
 - Saving a product updates the GitHub repository and triggers a Vercel deployment. The storefront changes after that deployment is ready.
