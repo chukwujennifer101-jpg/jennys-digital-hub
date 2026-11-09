@@ -393,20 +393,21 @@
       font-family:"Sora","DM Sans",ui-sans-serif,system-ui,sans-serif;
     }
     .hero h1{font-weight:800 !important;letter-spacing:-.045em}
+    /* Clearly visible electric-blue outline around every hero headline letter. */
     .hero h1{
-      -webkit-text-stroke:1.35px #4f91ed;
+      -webkit-text-stroke:2.5px #8fc5ff;
       paint-order:stroke fill;
-      text-shadow:0 3px 24px rgba(10,24,45,.22);
+      text-shadow:0 0 2px #8fc5ff,0 0 16px rgba(76,157,255,.42),0 3px 24px rgba(10,24,45,.22);
     }
     .hero h1 span{
-      color:#e5f1ff !important;
-      -webkit-text-stroke:1.55px #3977c5;
+      color:#f4f8ff !important;
+      -webkit-text-stroke:2.7px #3977c5;
       paint-order:stroke fill;
-      text-shadow:0 0 18px rgba(57,119,197,.24);
+      text-shadow:0 0 3px #9dccff,0 0 20px rgba(57,119,197,.48);
     }
     @media(max-width:620px){
-      .hero h1{-webkit-text-stroke:1px #4f91ed}
-      .hero h1 span{-webkit-text-stroke:1.15px #3977c5}
+      .hero h1{-webkit-text-stroke:1.8px #8fc5ff}
+      .hero h1 span{-webkit-text-stroke:2px #3977c5}
     }
     .section h2,.contact-panel h2{font-weight:600;letter-spacing:-.035em}
     .product-info h3,.benefit h3{font-weight:600;letter-spacing:-.02em}
