@@ -8,7 +8,7 @@
   <title>Jenny's Digital Hub | Laptops & Computer Accessories</title>
   <style>
     :root{color-scheme:dark;--bg:#080f1b;--panel:#101c2b;--panel2:#17283b;--line:#293b50;--text:#f5f3ee;--muted:#aeb9c5;--blue:#c6a878;--blue2:#a8895c;--radius:16px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Manrope",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:0}button,input,select,textarea{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit}.wrap{width:min(1120px,90%);margin:auto}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:.01em}button,input,select,textarea{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit}.wrap{width:min(1120px,90%);margin:auto}
     .topbar{position:sticky;top:0;z-index:20;background:rgba(8,15,27,.88);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.logo{font-size:20px;font-weight:800;letter-spacing:-.5px;text-decoration:none}.logo span{color:var(--blue)}.navlinks{display:flex;align-items:center;gap:24px}.navlinks a{font-size:14px;color:var(--muted);text-decoration:none}.navlinks a:hover{color:var(--blue)}
     .btn,.cart-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:9px;padding:12px 18px;background:var(--blue);color:#06101e;font-weight:700;text-decoration:none;cursor:pointer;transition:background .25s ease,transform .25s ease,box-shadow .25s ease}.btn:hover,.cart-button:hover{background:#ddc49d;transform:translateY(-2px);box-shadow:0 12px 28px #0004}.btn.secondary{background:transparent;border:1px solid var(--line);color:var(--text)}.cart-button{padding:10px 14px}.count{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:99px;background:#192a3d;color:#fff;font-size:12px}
     .hero{padding:104px 0 92px;background:radial-gradient(ellipse at 82% 35%,rgba(198,168,120,.14),transparent 38%),linear-gradient(135deg,#101e30,#080f1b 70%);position:relative;isolation:isolate}.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:48px}.eyebrow{margin:0 0 12px;color:var(--blue);font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase}.hero h1{max-width:700px;margin:0;font-size:clamp(42px,6.2vw,72px);line-height:1.04;letter-spacing:-2.8px;font-weight:750}.hero h1 span{color:var(--blue)}.hero-copy{max-width:570px;margin:22px 0 28px;color:var(--muted);font-size:17px;line-height:1.8}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.hero-visual{min-height:300px;display:grid;place-items:center;border:1px solid #3a4b5c;border-radius:24px;background:linear-gradient(145deg,#1a2c3f,#0e1928);box-shadow:0 34px 90px #0007;position:relative;overflow:hidden}.hero-visual:before{content:"";position:absolute;width:260px;height:260px;border:1px solid #4d9cff45;border-radius:50%;box-shadow:0 0 0 35px #4d9cff0c,0 0 0 70px #4d9cff08}.laptop-art{position:relative;width:75%;max-width:340px;z-index:1}.screen{height:185px;border:9px solid #344b68;border-bottom-width:13px;border-radius:12px 12px 5px 5px;background:linear-gradient(135deg,#213a50,#49647a 55%,#182b40);box-shadow:inset 0 0 30px #8bc8ff22}.screen:after{content:"JDH";display:grid;place-items:center;height:100%;font-size:42px;font-weight:800;letter-spacing:5px;color:#e2d2b7}.base{height:12px;margin:0 -18px;background:linear-gradient(#9aadc3,#34465e);border-radius:2px 2px 14px 14px}
@@ -361,60 +361,6 @@
       transition-duration:.15s !important;
     }
 
-
-    /* Premium hero headline: bold editorial weight with a cool blue-white accent. */
-    .hero h1{
-      max-width:780px;
-      font-family:"Sora","DM Sans",ui-sans-serif,system-ui,sans-serif !important;
-      font-size:clamp(48px,7.1vw,84px) !important;
-      font-weight:800 !important;
-      line-height:.99 !important;
-      letter-spacing:-.058em !important;
-      color:#fffaf3 !important;
-      text-wrap:balance;
-      text-shadow:0 3px 24px rgba(10,24,45,.16);
-    }
-    .hero h1 span{
-      display:inline;
-      color:#dcecff !important;
-      font-weight:800 !important;
-      text-shadow:0 2px 22px rgba(9,34,68,.28);
-    }
-    @media(max-width:620px){
-      .hero h1{font-size:clamp(43px,11vw,60px) !important;letter-spacing:-.055em !important;line-height:1.02 !important}
-    }
-
-    /* Refined typography: distinctive headings with calm, readable body text. */
-    body{font-family:"DM Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:0}
-    .logo,.hero h1,.section h2,.section h3,.contact-panel h2,.cart-head h2,.checkout h3,.keyboard-dialog-head h2{
-      font-family:"Sora","DM Sans",ui-sans-serif,system-ui,sans-serif;
-    }
-    .hero h1{font-weight:800 !important;letter-spacing:-.045em}
-    /* Clearly visible electric-blue outline around every hero headline letter. */
-    .hero h1{
-      -webkit-text-stroke:2.5px #8fc5ff;
-      paint-order:stroke fill;
-      text-shadow:0 0 2px #8fc5ff,0 0 16px rgba(76,157,255,.42),0 3px 24px rgba(10,24,45,.22);
-    }
-    .hero h1 span{
-      color:#f4f8ff !important;
-      -webkit-text-stroke:2.7px #3977c5;
-      paint-order:stroke fill;
-      text-shadow:0 0 3px #9dccff,0 0 20px rgba(57,119,197,.48);
-    }
-    @media(max-width:620px){
-      .hero h1{-webkit-text-stroke:1.8px #8fc5ff}
-      .hero h1 span{-webkit-text-stroke:2px #3977c5}
-    }
-    .section h2,.contact-panel h2{font-weight:600;letter-spacing:-.035em}
-    .product-info h3,.benefit h3{font-weight:600;letter-spacing:-.02em}
-
-    /* Restore the original site-wide Inter font only; preserve all other styling. */
-    body,
-    .logo,.hero h1,.section h2,.section h3,.contact-panel h2,
-    .cart-head h2,.checkout h3,.keyboard-dialog-head h2{
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif !important;
-    }
   </style>
 </head>
 <body>
