@@ -1,4 +1,5 @@
 const crypto = require("node:crypto");
+const { get, list, put } = require("@vercel/blob");
 
 const OWNER = "chukwujennifer101-jpg";
 const REPO = "jennys-digital-hub";
@@ -116,6 +117,27 @@ function validateProducts(value) {
     return { id, name, category, price, description, art: String(item.art || category.toUpperCase()).slice(0, 30), image, available: item.available !== false, ...(options ? { options } : {}) };
   });
 }
+
+async function readPrivateOrder(pathname) {
+  const result = await get(pathname, { access: "private", useCache: false });
+  if (!result || result.statusCode !== 200 || !result.stream) return null;
+  const chunks = [];
+  for await (const chunk of result.stream) chunks.push(Buffer.from(chunk));
+  return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+}
+async function savePrivateOrder(order) {
+  await put("orders/" + order.orderId + ".json", JSON.stringify(order), {
+    access: "private", addRandomSuffix: false, contentType: "application/json"
+  });
+}
+async function getRecentOrders() {
+  const result = await list({ prefix: "orders/", limit: 200 });
+  const paths = result.blobs
+    .filter(blob => /^orders\/JDH-[A-Z0-9]+-[A-F0-9]{6}\.json$/.test(blob.pathname))
+    .sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
+  const orders = await Promise.all(paths.map(blob => readPrivateOrder(blob.pathname).catch(() => null)));
+  return orders.filter(Boolean).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+}
 module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") return send(res, 204, {});
   if (req.method === "GET") return send(res, 200, { authenticated: isAuthenticated(req) });
@@ -138,6 +160,34 @@ module.exports = async function handler(req, res) {
   }
   if (!isAuthenticated(req)) return send(res, 401, { error: "Please sign in to manage the website." });
   try {
+    if (req.method === "POST" && req.body && req.body.action === "orders:list") {
+      const orders = await getRecentOrders();
+      return send(res, 200, { orders, count: orders.length });
+    }
+    if (req.method === "POST" && req.body && req.body.action === "orders:update") {
+      const orderId = String(req.body.orderId || "").trim();
+      if (!/^JDH-[A-Z0-9]+-[A-F0-9]{6}$/.test(orderId)) return send(res, 400, { error: "Invalid order reference." });
+      const order = await readPrivateOrder("orders/" + orderId + ".json");
+      if (!order) return send(res, 404, { error: "Order not found." });
+      const allowedStatuses = ["new", "processing", "shipped", "completed", "cancelled"];
+      if (req.body.orderStatus !== undefined) {
+        if (!allowedStatuses.includes(req.body.orderStatus)) return send(res, 400, { error: "Choose a valid order status." });
+        order.orderStatus = req.body.orderStatus;
+        order.updatedAt = new Date().toISOString();
+      }
+      if (req.body.paymentStatus !== undefined) {
+        if (!["pending", "paid"].includes(req.body.paymentStatus)) return send(res, 400, { error: "Choose a valid payment status." });
+        if (order.paymentMethod !== "Bank Transfer" && req.body.paymentStatus === "paid" && order.paymentStatus !== "paid") {
+          return send(res, 400, { error: "Paystack payments can only be marked paid after automatic verification." });
+        }
+        order.paymentStatus = req.body.paymentStatus;
+        if (req.body.paymentStatus === "paid") order.paidAt = order.paidAt || new Date().toISOString();
+        else delete order.paidAt;
+        order.updatedAt = new Date().toISOString();
+      }
+      await savePrivateOrder(order);
+      return send(res, 200, { success: true, order });
+    }
     if (req.method === "POST" && req.body && req.body.action === "upload") {
       const mime = String(req.body.mime || "");
       const extensions = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" };
