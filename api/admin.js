@@ -172,6 +172,9 @@ module.exports = async function handler(req, res) {
       const allowedStatuses = ["new", "processing", "shipped", "completed", "cancelled"];
       if (req.body.orderStatus !== undefined) {
         if (!allowedStatuses.includes(req.body.orderStatus)) return send(res, 400, { error: "Choose a valid order status." });
+        if (["shipped", "completed"].includes(req.body.orderStatus) && order.paymentStatus !== "paid") {
+          return send(res, 400, { error: "Confirm payment before marking this order as shipped or completed." });
+        }
         order.orderStatus = req.body.orderStatus;
         order.updatedAt = new Date().toISOString();
       }
@@ -181,7 +184,7 @@ module.exports = async function handler(req, res) {
           return send(res, 400, { error: "Paystack payments can only be marked paid after automatic verification." });
         }
         order.paymentStatus = req.body.paymentStatus;
-        if (req.body.paymentStatus === "paid") order.paidAt = order.paidAt || new Date().toISOString();
+        if (req.body.paymentStatus === "paid") { order.paidAt = order.paidAt || new Date().toISOString(); if (order.paymentMethod === "Bank Transfer") order.paymentConfirmationSource = "manual_bank_transfer"; }
         else delete order.paidAt;
         order.updatedAt = new Date().toISOString();
       }
