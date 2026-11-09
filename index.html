@@ -213,8 +213,8 @@
   </main>
   <footer><div class="wrap footer-row"><span>Jenny's Digital Hub</span><span>&copy; <span id="year"></span> Jenny's Digital Hub. All rights reserved.</span></div></footer>
   <dialog class="keyboard-dialog" id="keyboardDialog" aria-labelledby="keyboardDialogTitle">
-    <div class="keyboard-dialog-head"><h2 id="keyboardDialogTitle">Choose a Computer Keyboard</h2><button class="close-button" id="closeKeyboardDialog" type="button">Close</button></div>
-    <p class="keyboard-dialog-intro">Select the keyboard type you want. Each option has its own price.</p>
+    <div class="keyboard-dialog-head"><h2 id="keyboardDialogTitle">Choose an option</h2><button class="close-button" id="closeKeyboardDialog" type="button">Close</button></div>
+    <p class="keyboard-dialog-intro" id="optionsDialogIntro">Select the type you want. Each option has its own image and price.</p>
     <div class="keyboard-options" id="keyboardOptionsList"></div>
   </dialog>
   <div class="overlay" id="overlay"></div>
@@ -273,7 +273,7 @@
         const title=document.createElement("h3");title.textContent=p.name;
         const desc=document.createElement("p");desc.textContent=p.description;
         if(Array.isArray(p.options)&&p.options.length){
-          const selectButton=document.createElement("button");selectButton.className="btn add-button keyboard-select-button";selectButton.type="button";selectButton.textContent="Choose keyboard type";selectButton.addEventListener("click",()=>openKeyboardOptions(p));
+          const selectButton=document.createElement("button");selectButton.className="btn add-button keyboard-select-button";selectButton.type="button";selectButton.textContent="Choose "+(p.name==="Computer Keyboard"?"keyboard":"mouse")+" type";selectButton.addEventListener("click",()=>openKeyboardOptions(p));
           info.append(cat,title,desc,selectButton);
         }else{
           const bottom=document.createElement("div");bottom.className="product-bottom";
@@ -286,11 +286,14 @@
     }
     function openKeyboardOptions(product){
       const list=$("keyboardOptionsList");list.replaceChildren();
+      const itemType=product.name==="Computer Keyboard"?"keyboard":"mouse";
+      $("keyboardDialogTitle").textContent="Choose a "+product.name;
+      $("optionsDialogIntro").textContent="Select the "+itemType+" type you want. Each option has its own image and price.";
       product.options.filter(option=>option.available!==false).forEach(option=>{
         const choice=document.createElement("div");choice.className="keyboard-option";
         const optionImage=document.createElement("img");optionImage.src=option.image;optionImage.alt=option.name+" product photograph";optionImage.loading="lazy";optionImage.onerror=()=>{optionImage.style.visibility="hidden";};
         const details=document.createElement("div");const optionName=document.createElement("strong");optionName.textContent=option.name;const optionPrice=document.createElement("span");optionPrice.className="price";optionPrice.textContent=money(option.price);details.append(optionName,optionPrice);
-        const add=document.createElement("button");add.className="btn add-button";add.type="button";add.textContent="Add to cart";add.addEventListener("click",()=>{addToCart({...option,name:"Computer Keyboard — "+option.name,category:product.category});$("keyboardDialog").close();openCart();});
+        const add=document.createElement("button");add.className="btn add-button";add.type="button";add.textContent="Add to cart";add.addEventListener("click",()=>{addToCart({...option,name:product.name+" — "+option.name,category:product.category});$("keyboardDialog").close();openCart();});
         choice.append(optionImage,details,add);list.append(choice);
       });
       $("keyboardDialog").showModal();
