@@ -9,7 +9,7 @@ A responsive online storefront for laptops and computer accessories, with a priv
 - Checkout for Bank Transfer and Paystack
 - Server-side catalogue price validation before an order is accepted
 - Private order records stored in Vercel Blob
-- Paystack transaction initialization and server-side verification
+- Paystack transaction initialization, server-side verification, and signed webhook confirmation
 - Customer contact: WhatsApp +234 901 740 2219
 
 ## Admin dashboard
@@ -41,4 +41,4 @@ Never place secrets in browser code or commit them to this repository.
 
 ## Important launch checks
 
-Before accepting live orders, verify the production Paystack key mode, complete a controlled end-to-end payment test, confirm bank details and catalogue prices, and decide delivery fees/areas, returns, and warranty terms. No delivery charge or warranty promise is added by default.
+Before accepting live orders, verify the production Paystack key mode, configure the Paystack webhook at `/api/paystack-webhook`, complete a controlled end-to-end payment test, confirm bank details and catalogue prices, and decide delivery fees/areas, returns, and warranty terms. No delivery charge or warranty promise is added by default.
