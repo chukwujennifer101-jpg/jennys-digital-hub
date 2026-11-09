@@ -168,6 +168,77 @@
     .keyboard-option .price{display:block;margin-top:4px;font-size:14px;color:var(--blue)}
     .keyboard-option .add-button{white-space:nowrap;padding:9px 11px;font-size:12px}
     @media(max-width:480px){.keyboard-dialog{padding:17px}.keyboard-option{grid-template-columns:64px minmax(0,1fr);gap:9px}.keyboard-option img{width:64px;height:60px}.keyboard-option .add-button{grid-column:2;width:100%}}
+  
+    /* Jenny's Digital Hub — warm graphite and champagne brand finish */
+    :root{
+      color-scheme:dark;
+      --bg:#0b0b0a;
+      --panel:#151513;
+      --panel2:#201f1b;
+      --line:#37342d;
+      --text:#f3f0e9;
+      --muted:#b5afa3;
+      --blue:#c7a875;
+      --blue2:#a88959;
+      --radius:14px;
+    }
+    body{
+      background:
+        radial-gradient(ellipse at 12% 8%,rgba(199,168,117,.045),transparent 34%),
+        radial-gradient(ellipse at 88% 42%,rgba(255,255,255,.018),transparent 38%),
+        linear-gradient(180deg,#0b0b0a 0%,#11110f 52%,#0b0b0a 100%);
+      color:var(--text);
+    }
+    .topbar{background:rgba(11,11,10,.94);border-bottom-color:#c7a87524}
+    .logo span,.hero h1 span,.category,.keyboard-option .price{color:#c7a875}
+    .btn,.cart-button{background:linear-gradient(135deg,#d5bb8d,#b8945e);color:#17140f}
+    .btn:hover,.cart-button:hover{background:linear-gradient(135deg,#e3cda5,#c5a36f);box-shadow:0 12px 28px #0008}
+    .btn.secondary{background:transparent;border-color:#756448;color:var(--text)}
+    .hero{
+      background:
+        radial-gradient(ellipse at 78% 42%,rgba(199,168,117,.13),transparent 36%),
+        radial-gradient(ellipse at 15% 0%,rgba(255,255,255,.035),transparent 42%),
+        linear-gradient(115deg,#1a1915 0%,#11110f 54%,#0b0b0a 100%);
+    }
+    .hero-visual{
+      border-color:#c7a87545;
+      background:
+        radial-gradient(ellipse at 50% 78%,rgba(199,168,117,.15),transparent 43%),
+        linear-gradient(145deg,#292720 0%,#191915 54%,#10100e 100%);
+      box-shadow:inset 0 1px 0 #ffffff12,0 30px 80px #0009;
+    }
+    .hero-visual:before{border-color:#c7a87540;box-shadow:0 0 0 35px #c7a8750b,0 0 0 70px #c7a87507,0 0 65px #c7a87512}
+    .screen{border-color:#77736a;background:#10100e}
+    .base{background:linear-gradient(180deg,#d7d1c5 0%,#999184 25%,#555148 72%,#302e29 100%)}
+    .trust{background:#11110f;border-color:#c7a87524}
+    .trust-item{border-left-color:#c7a87545}
+    .section-alt{background:#10100e}
+    .product-card{
+      border-color:#ffffff19;
+      background:linear-gradient(155deg,#201f1b 0%,#151513 78%);
+      box-shadow:0 12px 32px #0004;
+    }
+    .product-card:hover{border-color:#b99a68;box-shadow:0 22px 48px #0008}
+    .product-image{background:radial-gradient(ellipse at 50% 46%,#39362e 0%,#211f1a 72%);color:#e2d2b5}
+    .field{background:#11110f;border-color:#403b31;color:var(--text)}
+    .field:focus{border-color:#c7a875;box-shadow:0 0 0 3px #c7a87522}
+    .benefit{background:linear-gradient(145deg,#201f1b,#151513);border-color:#37342d}
+    .benefit:hover{border-color:#a98c5e}
+    .contact-panel{
+      border-color:#8d754d;
+      background:
+        radial-gradient(ellipse at 85% 0%,rgba(199,168,117,.16),transparent 48%),
+        linear-gradient(145deg,#24221c,#12120f 68%);
+      box-shadow:0 25px 70px #0005;
+    }
+    .cart-drawer,.keyboard-dialog{background:#171714;border-color:#494337}
+    .cart-product-art,.keyboard-option{background:linear-gradient(145deg,#29271f,#151513);border-color:#403b31}
+    .quantity-controls button,.close-button{background:#11110f;border-color:#403b31}
+    .bank-transfer-details{background:#191812;border-color:#9a8053}
+    .bank-transfer-details strong{color:#d2b27c}
+    footer{border-color:#ffffff19}
+    @media(max-width:620px){.trust-item{border-left-color:#c7a87545}}
+
   </style>
 </head>
 <body>
