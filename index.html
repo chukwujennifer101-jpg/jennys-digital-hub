@@ -6,9 +6,6 @@
   <meta name="description" content="Shop laptops and computer accessories at Jenny's Digital Hub.">
   <meta name="theme-color" content="#080e1b">
   <title>Jenny's Digital Hub | Laptops & Computer Accessories</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{color-scheme:dark;--bg:#080f1b;--panel:#101c2b;--panel2:#17283b;--line:#293b50;--text:#f5f3ee;--muted:#aeb9c5;--blue:#c6a878;--blue2:#a8895c;--radius:16px}
     *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 "Manrope",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:0}button,input,select,textarea{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit}.wrap{width:min(1120px,90%);margin:auto}
@@ -411,6 +408,13 @@
     }
     .section h2,.contact-panel h2{font-weight:600;letter-spacing:-.035em}
     .product-info h3,.benefit h3{font-weight:600;letter-spacing:-.02em}
+
+    /* Restore the original site-wide Inter font only; preserve all other styling. */
+    body,
+    .logo,.hero h1,.section h2,.section h3,.contact-panel h2,
+    .cart-head h2,.checkout h3,.keyboard-dialog-head h2{
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif !important;
+    }
   </style>
 </head>
 <body>
