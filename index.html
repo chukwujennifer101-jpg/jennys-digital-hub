@@ -364,6 +364,29 @@
       transition-duration:.15s !important;
     }
 
+
+    /* Premium hero headline: bold editorial weight with a cool blue-white accent. */
+    .hero h1{
+      max-width:780px;
+      font-family:"Sora","DM Sans",ui-sans-serif,system-ui,sans-serif !important;
+      font-size:clamp(48px,7.1vw,84px) !important;
+      font-weight:800 !important;
+      line-height:.99 !important;
+      letter-spacing:-.058em !important;
+      color:#fffaf3 !important;
+      text-wrap:balance;
+      text-shadow:0 3px 24px rgba(10,24,45,.16);
+    }
+    .hero h1 span{
+      display:inline;
+      color:#dcecff !important;
+      font-weight:800 !important;
+      text-shadow:0 2px 22px rgba(9,34,68,.28);
+    }
+    @media(max-width:620px){
+      .hero h1{font-size:clamp(43px,11vw,60px) !important;letter-spacing:-.055em !important;line-height:1.02 !important}
+    }
+
     /* Refined typography: distinctive headings with calm, readable body text. */
     body{font-family:"DM Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:0}
     .logo,.hero h1,.section h2,.section h3,.contact-panel h2,.cart-head h2,.checkout h3,.keyboard-dialog-head h2{
