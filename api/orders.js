@@ -31,8 +31,8 @@ module.exports=async function handler(req,res){
   if(req.method!=="POST")return send(res,405,{error:"Method not allowed."});
   try{
     if(!process.env.BLOB_READ_WRITE_TOKEN) return send(res,503,{error:"Order storage is not configured. Please try again later."});
-    const customer={name:clean(req.body?.customer?.name,100),phone:clean(req.body?.customer?.phone,25),address:clean(req.body?.customer?.address,500)};
     const email=clean(req.body?.customer?.email,150);
+    const customer={name:clean(req.body?.customer?.name,100),phone:clean(req.body?.customer?.phone,25),email,address:clean(req.body?.customer?.address,500)};
     if(customer.name.length<2||customer.phone.length<7||customer.address.length<5||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return send(res,400,{error:"Enter your name, a valid phone number and delivery address."});
     const paymentMethod=clean(req.body?.paymentMethod,30);
     if(!["Bank Transfer","Paystack"].includes(paymentMethod))return send(res,400,{error:"Choose Bank Transfer or Paystack."});
