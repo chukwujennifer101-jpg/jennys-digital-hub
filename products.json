@@ -51,13 +51,47 @@
   },
   {
     "id": 6,
-    "name": "Wireless Mouse",
+    "name": "Computer Mouse",
     "category": "Accessories",
-    "price": 6500,
-    "description": "A practical mouse for everyday computer use.",
+    "price": null,
+    "description": "Choose your preferred computer mouse from the options below.",
     "art": "MOUSE",
     "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=85",
-    "available": true
+    "available": true,
+    "options": [
+      {
+        "id": "mouse-wireless",
+        "name": "Wireless Mouse",
+        "price": 6000,
+        "description": "Wireless computer mouse.",
+        "image": "https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=85",
+        "available": true
+      },
+      {
+        "id": "mouse-wired",
+        "name": "Wired Mouse",
+        "price": 3500,
+        "description": "Wired computer mouse.",
+        "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=900&q=85",
+        "available": true
+      },
+      {
+        "id": "mouse-rechargeable",
+        "name": "Rechargeable Mouse",
+        "price": 10000,
+        "description": "Rechargeable computer mouse.",
+        "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=900&q=85",
+        "available": true
+      },
+      {
+        "id": "mouse-belgian",
+        "name": "Belgian Mouse",
+        "price": 3500,
+        "description": "Belgian mouse.",
+        "image": "https://images.unsplash.com/photo-1613141412501-9012977f1969?auto=format&fit=crop&w=900&q=85",
+        "available": true
+      }
+    ]
   },
   {
     "id": 7,
