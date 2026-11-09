@@ -392,7 +392,22 @@
     .logo,.hero h1,.section h2,.section h3,.contact-panel h2,.cart-head h2,.checkout h3,.keyboard-dialog-head h2{
       font-family:"Sora","DM Sans",ui-sans-serif,system-ui,sans-serif;
     }
-    .hero h1{font-weight:600;letter-spacing:-.045em}
+    .hero h1{font-weight:800 !important;letter-spacing:-.045em}
+    .hero h1{
+      -webkit-text-stroke:1.35px #4f91ed;
+      paint-order:stroke fill;
+      text-shadow:0 3px 24px rgba(10,24,45,.22);
+    }
+    .hero h1 span{
+      color:#e5f1ff !important;
+      -webkit-text-stroke:1.55px #3977c5;
+      paint-order:stroke fill;
+      text-shadow:0 0 18px rgba(57,119,197,.24);
+    }
+    @media(max-width:620px){
+      .hero h1{-webkit-text-stroke:1px #4f91ed}
+      .hero h1 span{-webkit-text-stroke:1.15px #3977c5}
+    }
     .section h2,.contact-panel h2{font-weight:600;letter-spacing:-.035em}
     .product-info h3,.benefit h3{font-weight:600;letter-spacing:-.02em}
   </style>
