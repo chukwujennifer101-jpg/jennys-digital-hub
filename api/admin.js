@@ -142,18 +142,7 @@ module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") return send(res, 204, {});
   if (req.method === "GET") return send(res, 200, { authenticated: isAuthenticated(req) });
   if (req.method === "POST" && req.body && req.body.action === "login") {
-    if (!process.env.ADMIN_PASSWORD || !process.env.ADMIN_SESSION_SECRET) return send(res, 503, { error: "Admin security is not configured. Add the required Vercel environment variables first." });
-    const ip = String(req.headers["x-forwarded-for"] || "unknown").split(",")[0].trim();
-    const now = Date.now();
-    const attempt = loginAttempts.get(ip) || { count: 0, since: now };
-    if (now - attempt.since > 15 * 60 * 1000) { attempt.count = 0; attempt.since = now; }
-    if (attempt.count >= 10) return send(res, 429, { error: "Too many sign-in attempts. Please wait 15 minutes and try again." });
-    if (!constantTimeEqual(req.body.password, process.env.ADMIN_PASSWORD)) {
-      attempt.count += 1; loginAttempts.set(ip, attempt);
-      return send(res, 401, { error: "Incorrect admin password." });
-    }
-    loginAttempts.delete(ip);
-    return send(res, 200, { authenticated: true }, { "Set-Cookie": COOKIE + "=" + encodeURIComponent(issueSession()) + "; HttpOnly; Path=/; SameSite=Strict; Max-Age=" + SESSION_SECONDS + (process.env.VERCEL ? "; Secure" : "") });
+    return send(res, 410, { error: "Password sign-in has been replaced. Please use the authorised Google account." });
   }
   if (req.method === "POST" && req.body && req.body.action === "logout") {
     return send(res, 200, { success: true }, { "Set-Cookie": cookieOptions(0) });
