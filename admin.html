@@ -14,7 +14,7 @@
 <body>
 <header class="top"><div class="wrap topin"><div class="brand">JENNY'S <span>DIGITAL HUB</span> <span class="muted">/ ADMIN</span></div><button id="logout" class="btn secondary hidden" type="button">Sign out</button></div></header>
 <main class="wrap main">
-<section id="loginPanel" class="login"><p class="tag">Private access</p><h1>Admin sign in</h1><p class="muted">Only the authorised Google account can manage this website.</p><button id="googleSignIn" class="btn" type="button">Continue with Google</button><p id="loginStatus" class="status" role="status"></p></section>
+<section id="loginPanel" class="login"><p class="tag">Private access</p><h1>Admin sign in</h1><p class="muted">Sign in with your private administrator username and password.</p><form id="loginForm"><label>Username<input id="adminUsername" class="field" name="username" type="text" autocomplete="username" required></label><label>Password<input id="adminPassword" class="field" name="password" type="password" autocomplete="current-password" required></label><button id="loginButton" class="btn" type="submit">Sign in</button></form><p id="loginStatus" class="status" role="status"></p></section>
 <section id="dashboard" class="hidden">
 <div class="heading"><div><p class="tag">Store management</p><h1>Store dashboard</h1><p>Changes are saved to your website catalogue and published through your website deployment.</p></div><div class="toolbar"><button id="newProduct" class="btn" type="button">Add product</button></div></div>
 <section class="panel" style="margin-bottom:20px"><h2>Payment settings</h2><p class="muted">Bank Transfer details currently displayed to customers at checkout.</p><div class="formgrid"><label>Bank name<input class="field" value="GLOBUS BANK" readonly></label><label>Account name<input class="field" value="CHUKWU JENNIFER" readonly></label><label class="full">Account number<input class="field" value="8000080000" readonly></label></div><p class="hint">Paystack checkout and server-side verification are implemented. Successful payments are confirmed automatically when the customer returns from Paystack. Confirm that the production PAYSTACK_SECRET_KEY is a live key before accepting real payments. Bank transfers must be checked in your bank account before you mark an order as paid.</p></section>
@@ -46,11 +46,8 @@ function setStatus(id,message,type=""){const el=$(id);el.textContent=message;el.
 function money(value){return value===null||value===""?"Ask for price":new Intl.NumberFormat("en-NG",{style:"currency",currency:"NGN",maximumFractionDigits:0}).format(value);}
 function showDashboard(){ $("loginPanel").classList.add("hidden");$("dashboard").classList.remove("hidden");$("logout").classList.remove("hidden");loadProducts();loadOrders();}
 async function checkSession(){try{const result=await request("GET");if(result.authenticated)showDashboard();}catch{}}
-$("googleSignIn").addEventListener("click",()=>{window.location.href="/api/admin-auth?action=google";});
-const authMessage=new URLSearchParams(window.location.search).get("auth");
-if(authMessage==="denied")setStatus("loginStatus","Access denied. This Google account is not authorised.","error");
-else if(authMessage==="failed")setStatus("loginStatus","Google sign-in could not be completed. Please try again.","error");
-else if(authMessage==="success"){window.history.replaceState({},"","/admin.html");}
+$("loginForm").addEventListener("submit",async event=>{event.preventDefault();const button=$("loginButton");button.disabled=true;setStatus("loginStatus","Signing in…");try{await request("POST",{action:"login",username:$("adminUsername").value.trim(),password:$("adminPassword").value});$("adminPassword").value="";showDashboard();setStatus("loginStatus","");}catch(error){setStatus("loginStatus",error.message,"error");}finally{button.disabled=false;}});
+
 $("logout").addEventListener("click",async()=>{try{await request("POST",{action:"logout"});}catch{}$("dashboard").classList.add("hidden");$("loginPanel").classList.remove("hidden");$("logout").classList.add("hidden");});
 
 function orderMoney(value){return new Intl.NumberFormat("en-NG",{style:"currency",currency:"NGN",maximumFractionDigits:0}).format(Number(value)||0);}
