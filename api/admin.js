@@ -142,7 +142,22 @@ module.exports = async function handler(req, res) {
   if (req.method === "OPTIONS") return send(res, 204, {});
   if (req.method === "GET") return send(res, 200, { authenticated: isAuthenticated(req) });
   if (req.method === "POST" && req.body && req.body.action === "login") {
-    return send(res, 410, { error: "Password sign-in has been replaced. Please use the authorised Google account." });
+    const ip = String(req.headers["x-forwarded-for"] || req.socket?.remoteAddress || "unknown").split(",")[0].trim();
+    const now = Date.now();
+    const attempt = loginAttempts.get(ip) || { count: 0, until: 0 };
+    if (attempt.until > now && attempt.count >= 5) return send(res, 429, { error: "Too many sign-in attempts. Please wait 15 minutes and try again." });
+    const username = String(req.body.username || "").trim().toLowerCase();
+    const password = String(req.body.password || "");
+    const valid = constantTimeEqual(username, "chukwujennifer101@gmail.com") && Boolean(process.env.ADMIN_PASSWORD) && constantTimeEqual(password, process.env.ADMIN_PASSWORD);
+    if (!valid) {
+      const next = attempt.until > now ? attempt : { count: 0, until: now + 15 * 60 * 1000 };
+      next.count += 1; loginAttempts.set(ip, next);
+      return send(res, 401, { error: "Incorrect username or password." });
+    }
+    loginAttempts.delete(ip);
+    const session = encodeURIComponent(issueSession());
+    const cookie = COOKIE + "=" + session + "; HttpOnly; Path=/; SameSite=Strict; Max-Age=" + SESSION_SECONDS + (process.env.VERCEL ? "; Secure" : "");
+    return send(res, 200, { success: true }, { "Set-Cookie": cookie });
   }
   if (req.method === "POST" && req.body && req.body.action === "logout") {
     return send(res, 200, { success: true }, { "Set-Cookie": cookieOptions(0) });
